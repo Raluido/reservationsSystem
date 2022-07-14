@@ -1,0 +1,35 @@
+@extends('layouts.app-master')
+
+@section('content')
+    <div class="container mt-3">
+        <h2>Gestión de reservas</h2>
+
+        <div class="mt-5 row">
+            <h5 class="fw-bold">Yoga</h5>
+            @foreach ($yogaReservations as $yogaReservation)
+                <div class="d-flex justify-content-center border mt-3 col-12 col-md-6 col-lg-4">
+                    <div class="">
+                        <p class="mt-3">{{ $yogaReservation->name }}</p>
+                        <p class="mt-3">{{ $yogaReservation->reservation_date }}</p>
+                        {{-- <button class='ms-3 mb-3'><a class='text-dark text-decoration-none'
+                                href="userReservations/deleteYoga/{{ $yogaReservation->reservation_date }}">Cancelar</a></button> --}}
+                    </div>
+            @endforeach
+        </div>
+
+        <div class="mt-5 row">
+            <h5 class="fw-bold">Padel</h5>
+            @foreach ($padelReservations as $padelReservation)
+                <div class="d-flex justify-content-center border mt-3 col-12 col-md-6 col-lg-4">
+                    <div class="">
+                        <p class="mt-3">{{ $padelReservation->name }}</p>
+                        <p class="mt-3">{{ $padelReservation->match_level }}</p>
+                        <p class="mt-3">{{ $padelReservation->reservation_date }}</p>
+                        {{-- <button class='ms-3 mb-3'><a class='text-dark text-decoration-none'
+                                href="userReservations/deletePadel/{{ $padelReservation->reservation_date }}">Cancelar</a></button> --}}
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endsection

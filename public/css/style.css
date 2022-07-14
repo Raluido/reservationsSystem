@@ -1,0 +1,25 @@
+/* datepicker */
+.ui-datepicker-calendar .red2 {
+    color: yellow;
+    background: orange;
+    border-color: purple;
+    border: 2px solid purple;
+    padding:10px;
+}
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+/* end datepicker */
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+
