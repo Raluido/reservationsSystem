@@ -4,26 +4,26 @@ function disableDates(date) {
     return [true, ""];
 }
 
-var events = {
-    "2022-07-29": [
-        {
-            title: "Friday!!!!",
-            description: "Weekend is starting!!!",
-        },
-    ],
-    "2022-07-26": [
-        {
-            title: "Friday!!!!",
-            description: "Weekend is starting!!!",
-        },
-    ],
-    "2022-07-25": [
-        {
-            title: "Friday!!!!",
-            description: "Weekend is starting!!!",
-        },
-    ],
-};
+// var events = {
+//     "2022-07-29": [
+//         {
+//             title: "Friday!!!!",
+//             description: "Weekend is starting!!!",
+//         },
+//     ],
+//     "2022-07-26": [
+//         {
+//             title: "Friday!!!!",
+//             description: "Weekend is starting!!!",
+//         },
+//     ],
+//     "2022-07-25": [
+//         {
+//             title: "Friday!!!!",
+//             description: "Weekend is starting!!!",
+//         },
+//     ],
+// };
 
 var today = new Date();
 
@@ -59,20 +59,43 @@ function changeBackground(year, month) {
     }
 }
 
+
 var data = document.getElementById('checkeddata');
+var data1 = document.getElementById('checkeddata1');
+var data2 = document.getElementById('checkeddata2');
 
-var data2 = JSON.parse(data.value);
+var data3 = JSON.parse(data.value);
+var data4 = JSON.parse(data1.value);
+var data5 = JSON.parse(data2.value);
 
+arr = [];
+var obj = {};
+for(i = 0 ; i < data4.length; i++){
+    obj[data4[i]] = data5[i];
+}
+arr.push(obj);
+
+
+console.log(arr);
+
+
+var events = {};
 var obj = {};
 
-for (let i = 0; i < data2.length; i++) {
-    obj.push({
-      data2[i,0] : data2[i,1],
-    })
-  }
+for(var i of data3){
+    for(var [j,z] of arr){
+        obj['status']={
+            status:j,
+            hour:z,
+        }
+    }
+    events[i]=obj;
+    obj={};
+}
+
+console.log(events);
 
 
-console.log(obj);
 
 // Provide a function to find and display events
 function findEvents(date) {
@@ -82,7 +105,7 @@ function findEvents(date) {
     // Start by emptying our data container
     $("#dateevents").empty();
     // Potential date object
-    var dateObj = data2[date];
+    var dateObj = events[date];
     // If no events exist for the selected date
     if (!dateObj) {
         return $("#dateevents").html("<h2>" + date + ": No Events</h2>");
