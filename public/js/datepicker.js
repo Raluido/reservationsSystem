@@ -4,7 +4,7 @@ var data = document.getElementById("checkeddata");
 
 var events = JSON.parse(data.value);
 
-console.log(events);
+// console.log(events);
 
 var today = new Date();
 
@@ -37,11 +37,21 @@ function changeBackground(year, month) {
             var day = d.getDate();
             // retrieve all elements containing day
             var elements = $("a:contains(" + day + ")");
-            elements.each(function (index) {
-                if ($(this).text() == day) {
-                    $(this).css("background", "green");
-                }
-            });
+            if (
+                events[date][0]["Estado"] == "Sin plazas" &&
+                events[date][0]["Estado "] == "Sin plazas"
+            ) {
+                elements.each(function (index) {
+                    if ($(this).text() == day) {
+                        $(this).css("background", "red");
+                    }
+                });
+            } else
+                elements.each(function (index) {
+                    if ($(this).text() == day) {
+                        $(this).css("background", "green");
+                    }
+                });
         }
     }
 }
@@ -61,16 +71,14 @@ function findEvents(date) {
     }
 
     // If we've made it this far, we have events!
-    $("#dateevents").html(
-        "<h2>" + date + ": " + dateObj.length + " Events Planned</h2>"
-    );
+    $("#dateevents").html("<h2>" + date + ": Horas disponibles</h2>");
     // Cycle over every event for this date
     $.each(dateObj, function (index, event) {
         // Build a list for each event
         var $list = $("<div>");
         // Add all event details to list
         $.each(event, function (name, desc) {
-            $("<p>")
+            $("<div>")
                 .html(name + ": " + desc)
                 .appendTo($list);
         });
@@ -79,7 +87,7 @@ function findEvents(date) {
     });
 }
 
-// var events = {
+// var events2 = {
 //     "2022-07-29": [
 //         {
 //             title: "Friday!!!!",
@@ -99,3 +107,5 @@ function findEvents(date) {
 //         },
 //     ],
 // };
+
+// console.log((events2["2022-07-29"][0]["title"]));

@@ -20,167 +20,188 @@ class PadelReservationsController extends Controller
         $range = date('Y-m-d', strtotime(today() . ' + 15 days')) . ' 00:00:00';
         $reservedPlaces = Db::Table('padel_reservations')->whereBetween('reservation_date', [$today, $range])->get();
 
-        $checkdatesAr3 = array();
-        $checkdatesAr4 = array();
+        $checkdatesAr3 = array(null);
 
-        for ($i = 0; $i <= 14; $i++) {
+        if ($checkdatesAr3 != null) {
 
-            $dayOfWeekPlus = date('Y-m-d', strtotime($today . ' +' . $i . 'days'));
-            $dayOfWeek = date("N", strtotime($dayOfWeekPlus));
+            for ($i = 0; $i <= 14; $i++) {
 
-            switch ($dayOfWeek) {
-                case 1:
+                $dayOfWeekPlus = date('Y-m-d', strtotime($today . ' +' . $i . 'days'));
+                $dayOfWeek = date("N", strtotime($dayOfWeekPlus));
 
-                    $checkDay0 = $dayOfWeekPlus . ' 11:15:00';
-                    $hours = '11:15:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
+                switch ($dayOfWeek) {
+                    case 1:
 
-                    $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
+                        $checkDay0 = $dayOfWeekPlus . ' 11:15:00';
+                        $hours1 = '11:15:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
 
-                    $checkdatesAr1 = $this->result($checkedDates);
+                        $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr1 = $this->result($checkedDates);
+
+                        $checkdatesAr4 = array();
+                        $checkdatesAr4['Hora'] = $hours1;
+                        $checkdatesAr4['Estado'] = $checkdatesAr1[1];
+                        $checkdatesAr4['Información'] = $checkdatesAr1[0];
 
 
-                    $checkDay1 = $dayOfWeekPlus . ' 18:30:00';
-                    $hours = '18:30:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
+                        $checkDay1 = $dayOfWeekPlus . ' 18:30:00';
+                        $hours2 = '18:30:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
 
-                    $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
+                        $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
 
-                    $checkdatesAr2 = $this->result($checkedDates);
+                        $checkdatesAr2 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr4['Hora '] = $hours2;
+                        $checkdatesAr4['Estado '] = $checkdatesAr2[1];
+                        $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                        $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
-                    break;
-                case 2:
+                        log::info($checkdatesAr4);
 
-                    $checkDay0 = $dayOfWeekPlus . ' 10:15:00';
-                    $hours = '10:15:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
+                        break;
+                    case 2:
 
-                    $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
+                        $checkDay0 = $dayOfWeekPlus . ' 10:15:00';
+                        $hours1 = '10:15:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
 
-                    $checkdatesAr1 = $this->result($checkedDates);
+                        $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr1 = $this->result($checkedDates);
 
-                    $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
-                    $hours = '19:00:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
+                        $checkdatesAr4 = array();
+                        $checkdatesAr4['Hora'] = $hours1;
+                        $checkdatesAr4['Estado'] = $checkdatesAr1[1];
+                        $checkdatesAr4['Información'] = $checkdatesAr1[0];
 
-                    $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
+                        $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
+                        $hours2 = '19:00:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
 
-                    $checkdatesAr2 = $this->result($checkedDates);
+                        $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr2 = $this->result($checkedDates);
 
-                    break;
-                case 3:
-                    $checkDay0 = $dayOfWeekPlus . ' 10:15:00';
-                    $hours = '10:15:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
+                        $checkdatesAr4['Hora '] = $hours2;
+                        $checkdatesAr4['Estado '] = $checkdatesAr2[1];
+                        $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                        $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
-                    $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
+                        break;
+                    case 3:
+                        $checkDay0 = $dayOfWeekPlus . ' 10:15:00';
+                        $hours1 = '10:15:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
 
-                    $checkdatesAr1 = $this->result($checkedDates);
+                        $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr1 = $this->result($checkedDates);
 
-                    $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
-                    $hours = '19:00:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
+                        $checkdatesAr4 = array();
+                        $checkdatesAr4['Hora'] = $hours1;
+                        $checkdatesAr4['Estado'] = $checkdatesAr1[1];
+                        $checkdatesAr4['Información'] = $checkdatesAr1[0];
 
-                    $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
+                        $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
+                        $hours2 = '19:00:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
 
-                    $checkdatesAr2 = $this->result($checkedDates);
+                        $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr2 = $this->result($checkedDates);
 
-                    break;
-                case 4:
-                    $checkDay0 = $dayOfWeekPlus . ' 10:15:00';
-                    $hours = '10:15:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
+                        $checkdatesAr4['Hora '] = $hours2;
+                        $checkdatesAr4['Estado '] = $checkdatesAr2[1];
+                        $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                        $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
-                    $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
+                        break;
+                    case 4:
+                        $checkDay0 = $dayOfWeekPlus . ' 10:15:00';
+                        $hours1 = '10:15:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
 
-                    $checkdatesAr1 = $this->result($checkedDates);
+                        $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr1 = $this->result($checkedDates);
 
-                    $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
-                    $hours = '19:00:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
+                        $checkdatesAr4 = array();
+                        $checkdatesAr4['Hora'] = $hours1;
+                        $checkdatesAr4['Estado'] = $checkdatesAr1[1];
+                        $checkdatesAr4['Información'] = $checkdatesAr1[0];
 
-                    $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
+                        $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
+                        $hours2 = '19:00:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
 
-                    $checkdatesAr2 = $this->result($checkedDates);
+                        $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr2 = $this->result($checkedDates);
 
-                    break;
-                case 5:
-                    $checkDay0 = $dayOfWeekPlus . ' 11:15:00';
-                    $hours = '11:15:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
+                        $checkdatesAr4['Hora '] = $hours2;
+                        $checkdatesAr4['Estado '] = $checkdatesAr2[1];
+                        $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                        $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
-                    $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
+                        break;
+                    case 5:
+                        $checkDay0 = $dayOfWeekPlus . ' 11:15:00';
+                        $hours1 = '11:15:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay0)->value('match_level');
 
-                    $checkdatesAr1 = $this->result($checkedDates);
+                        $checkedDates = [$checkDay0, $hour1R, $hour1RU, $level0];
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr1 = $this->result($checkedDates);
 
-                    $checkDay1 = $dayOfWeekPlus . ' 18:30:00';
-                    $hours = '18:30:00';
-                    $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
-                    $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
-                    $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
+                        $checkdatesAr4 = array();
+                        $checkdatesAr4['Hora'] = $hours1;
+                        $checkdatesAr4['Estado'] = $checkdatesAr1[1];
+                        $checkdatesAr4['Información'] = $checkdatesAr1[0];
 
-                    $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
+                        $checkDay1 = $dayOfWeekPlus . ' 18:30:00';
+                        $hours2 = '18:30:00';
+                        $hour1R = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->get()->count();
+                        $hour1RU = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->where('user_id', auth()->user()->id)->get()->count();
+                        $level0 = Db::Table('padel_reservations')->where('reservation_date', $checkDay1)->value('match_level');
 
-                    $checkdatesAr2 = $this->result($checkedDates);
+                        $checkedDates = [$checkDay1, $hour1R, $hour1RU, $level0];
 
-                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
-                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
+                        $checkdatesAr2 = $this->result($checkedDates);
 
-                    break;
+                        $checkdatesAr4['Hora '] = $hours2;
+                        $checkdatesAr4['Estado '] = $checkdatesAr2[1];
+                        $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                        $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
+
+                        break;
+                }
             }
+
+            $checkdatesAr3 = array_map(function ($array) {
+                return array((object)$array);
+            }, $checkdatesAr3);
         }
-
-        log::info($checkdatesAr3);
-
-        $checkdatesAr3 = array_map(function ($array) {
-                 return array((object)$array);
-             }, $checkdatesAr3);
-
 
         return view('reservations.indexPadel', compact('checkdatesAr3'));
     }
@@ -188,10 +209,13 @@ class PadelReservationsController extends Controller
     public function result($checkedDates)
     {
 
+        $state = "null";
+
         if ($checkedDates[2] == 1) {
             $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Ya has reservado para ésta hora, quieres cancelar? " . "</p>" . "<div class='d-flex justify-content-center'><div><button class='ms-3'><a class='text-dark text-decoration-none' href='" . url('padelReservations/deletematch/' . $checkedDates[0]) . "'>Cancelar</a></button></div></div></div>";
+            $state = "Sin plazas";
         } else if ($checkedDates[1] == 0) {
-            $checkdatesAr = "No hay partidos reservados partidos a ésta hora. Quieres reservar" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>No hay partidos reservados partidos a ésta hora. Quieres reservar" . "</p>" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
             <input type='hidden' name='reservationDate' value='$checkedDates[0]'>
             <input type='hidden' name='newMatch' value='0'>
@@ -199,7 +223,7 @@ class PadelReservationsController extends Controller
             <div class='d-flex justify-content-center'><div><button type='submit'>Reservar</button></div></div>
             </form></div>";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 3 && $checkedDates[2] == 0 && Db::Table('users')->where('id', auth()->user()->id)->value('padelLevel') == $checkedDates[3]) {
-            $checkdatesAr = "Hay un partido reservado pero quedan " . (4 - $checkedDates[1]) . " plazas. Quieres reservar" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Hay un partido reservado pero quedan " . (4 - $checkedDates[1]) . " plazas. Quieres reservar"  . "</p>" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
             <input type='hidden' name='reservationDate' value='$checkedDates[0]'>
             <input type='hidden' name='newMatch' value='0'>
@@ -207,12 +231,14 @@ class PadelReservationsController extends Controller
             <div class='d-flex justify-content-center'><div><button type='submit'>Reservar</button></div></div>
             </form></div>";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 3 && $checkedDates[2] == 0 && Db::Table('users')->where('id', auth()->user()->id)->value('padelLevel') != $checkedDates[3]) {
-            $checkdatesAr = "Aún quedan plazas para éste partido pero no tienes el nivel para participar";
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Aún quedan plazas para éste partido pero no tienes el nivel para participar</p></div>";
+            $state = "Sin plazas";
         } else if ($checkedDates[1] == 4) {
-            $checkdatesAr = "Todas las plazas están ocupadas, losiento";
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Todas las plazas están ocupadas, losiento</p></div>";
+            $state = "Sin plazas";
         }
 
-        return $checkdatesAr;
+        return [$checkdatesAr, $state];
     }
 
 
@@ -240,7 +266,9 @@ class PadelReservationsController extends Controller
             echo "</script>";
         }
 
-        return view('reservations.indexPadel');
+        $checkdatesAr3 = null;
+
+        return view('reservations.indexPadel', compact('checkdatesAr3'));
     }
 
     public function deletematch($matchdate)

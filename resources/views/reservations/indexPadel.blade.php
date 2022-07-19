@@ -2,19 +2,20 @@
 
 @section('content')
     <div class="bg-light p-4 rounded">
-        <h2>Reservar padel</h2>
-
+        <div class="d-flex justify-content-center ">
+            <h2>Reservar padel</h2>
+        </div>
         <div class="container mt-5">
             <div class="">
-                <h4>Ver horarios disponibles</h4>
+                <h4></h4>
                 <p></p>
             </div>
             <input type="hidden" value="{{ json_encode($checkdatesAr3) }}" id="checkeddata">
             {{-- <input type="hidden" value="{{ json_encode($checkdatesAr4) }}" id="checkeddata1"> --}}
             {{-- <input type="hidden" value="{{ json_encode($checkdatesAr5) }}" id="checkeddata2"> --}}
-            <div class="">
-                <div id="datepicker"></div>
-                <div id="dateevents"></div>
+            <div class="d-flex">
+                <div class="mt-5" id="datepicker"></div>
+                <div class="ms-5" id="dateevents"></div>
             </div>
         </div>
     </div>
