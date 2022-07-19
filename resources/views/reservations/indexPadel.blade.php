@@ -10,8 +10,8 @@
                 <p></p>
             </div>
             <input type="hidden" value="{{ json_encode($checkdatesAr3) }}" id="checkeddata">
-            <input type="hidden" value="{{ json_encode($checkdatesAr4) }}" id="checkeddata1">
-            <input type="hidden" value="{{ json_encode($checkdatesAr5) }}" id="checkeddata2">
+            {{-- <input type="hidden" value="{{ json_encode($checkdatesAr4) }}" id="checkeddata1"> --}}
+            {{-- <input type="hidden" value="{{ json_encode($checkdatesAr5) }}" id="checkeddata2"> --}}
             <div class="">
                 <div id="datepicker"></div>
                 <div id="dateevents"></div>

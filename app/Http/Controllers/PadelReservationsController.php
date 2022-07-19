@@ -22,7 +22,6 @@ class PadelReservationsController extends Controller
 
         $checkdatesAr3 = array();
         $checkdatesAr4 = array();
-        $checkdatesAr5 = array();
 
         for ($i = 0; $i <= 14; $i++) {
 
@@ -42,9 +41,8 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr1 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr1[1]);
-                    array_push($checkdatesAr5, $hours);
+                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
 
                     $checkDay1 = $dayOfWeekPlus . ' 18:30:00';
@@ -57,10 +55,8 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr2[1]);
-                    array_push($checkdatesAr5, $hours);
-
+                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
                     break;
                 case 2:
@@ -75,10 +71,8 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr1 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr1[1]);
-                    array_push($checkdatesAr5, $hours);
-
+                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
                     $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
                     $hours = '19:00:00';
@@ -90,9 +84,8 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr2[1]);
-                    array_push($checkdatesAr5, $hours);
+                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
                     break;
                 case 3:
@@ -106,10 +99,8 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr1 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr1[1]);
-                    array_push($checkdatesAr5, $hours);
-
+                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
                     $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
                     $hours = '19:00:00';
@@ -121,9 +112,8 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr1[1]);
-                    array_push($checkdatesAr5, $hours);
+                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
                     break;
                 case 4:
@@ -137,10 +127,8 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr1 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr1[1]);
-                    array_push($checkdatesAr5, $hours);
-
+                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
                     $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
                     $hours = '19:00:00';
@@ -152,9 +140,8 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr2[1]);
-                    array_push($checkdatesAr5, $hours);
+                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
                     break;
                 case 5:
@@ -168,10 +155,8 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr1 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr1[1]);
-                    array_push($checkdatesAr5, $hours);
-
+                    array_push($checkdatesAr4, $hours, $checkdatesAr1);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
                     $checkDay1 = $dayOfWeekPlus . ' 18:30:00';
                     $hours = '18:30:00';
@@ -183,32 +168,51 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    array_push($checkdatesAr3, $dayOfWeekPlus);
-                    array_push($checkdatesAr4, $checkdatesAr2[1]);
-                    array_push($checkdatesAr5, $hours);
+                    array_push($checkdatesAr4, $hours, $checkdatesAr2);
+                    array_push($checkdatesAr3, $dayOfWeekPlus, $checkdatesAr4);
 
                     break;
             }
         }
 
-        return view('reservations.indexPadel', compact('checkdatesAr3', 'checkdatesAr4', 'checkdatesAr5'));
+        log::info($checkdatesAr3);
+
+        $checkdatesAr3 = array_map(function ($array) {
+                 return array((object)$array);
+             }, $checkdatesAr3);
+
+
+        return view('reservations.indexPadel', compact('checkdatesAr3'));
     }
 
     public function result($checkedDates)
     {
+
         if ($checkedDates[2] == 1) {
-            $checkdatesAr = "No hay partidos reservados";
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Ya has reservado para ésta hora, quieres cancelar? " . "</p>" . "<div class='d-flex justify-content-center'><div><button class='ms-3'><a class='text-dark text-decoration-none' href='" . url('padelReservations/deletematch/' . $checkedDates[0]) . "'>Cancelar</a></button></div></div></div>";
         } else if ($checkedDates[1] == 0) {
-            $checkdatesAr = "No hay partidos reservados";
+            $checkdatesAr = "No hay partidos reservados partidos a ésta hora. Quieres reservar" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
+            <input name='_token' type='hidden' value='" . csrf_token() . "'>
+            <input type='hidden' name='reservationDate' value='$checkedDates[0]'>
+            <input type='hidden' name='newMatch' value='0'>
+            <input type='hidden' name='matchLevel' value='$checkedDates[3]'>
+            <div class='d-flex justify-content-center'><div><button type='submit'>Reservar</button></div></div>
+            </form></div>";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 3 && $checkedDates[2] == 0 && Db::Table('users')->where('id', auth()->user()->id)->value('padelLevel') == $checkedDates[3]) {
-            $checkdatesAr = "No hay partidos reservados";
+            $checkdatesAr = "Hay un partido reservado pero quedan " . (4 - $checkedDates[1]) . " plazas. Quieres reservar" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
+            <input name='_token' type='hidden' value='" . csrf_token() . "'>
+            <input type='hidden' name='reservationDate' value='$checkedDates[0]'>
+            <input type='hidden' name='newMatch' value='0'>
+            <input type='hidden' name='matchLevel' value='$checkedDates[3]'>
+            <div class='d-flex justify-content-center'><div><button type='submit'>Reservar</button></div></div>
+            </form></div>";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 3 && $checkedDates[2] == 0 && Db::Table('users')->where('id', auth()->user()->id)->value('padelLevel') != $checkedDates[3]) {
-            $checkdatesAr = "No hay partidos reservados";
+            $checkdatesAr = "Aún quedan plazas para éste partido pero no tienes el nivel para participar";
         } else if ($checkedDates[1] == 4) {
-            $checkdatesAr = "No hay partidos reservados";
+            $checkdatesAr = "Todas las plazas están ocupadas, losiento";
         }
 
-        return [$checkedDates[0], $checkdatesAr];
+        return $checkdatesAr;
     }
 
 
@@ -250,3 +254,19 @@ class PadelReservationsController extends Controller
         return view('reservations.indexPadel');
     }
 }
+
+
+
+        // $cars = array(
+        //     "2022-07-20" =>
+        //     array("modelo"=>"Volvo", 22, 18),
+        //     "2022-07-23" => array("BMW", 15, 13),
+        //     "2022-07-22" => array("Saab", 5, 2),
+        //     "2022-07-21" => array("Land Rover", 17, 15)
+        // );
+
+        // $cars = array_map(function ($array) {
+        //     return array((object)$array);
+        // }, $cars);
+
+        // log::info($cars);
