@@ -203,6 +203,7 @@ class PadelReservationsController extends Controller
             }, $checkdatesAr3);
         }
 
+
         return view('reservations.indexPadel', compact('checkdatesAr3'));
     }
 
@@ -213,7 +214,7 @@ class PadelReservationsController extends Controller
 
         if ($checkedDates[2] == 1) {
             $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Ya has reservado para ésta hora, quieres cancelar? " . "</p>" . "<div class='d-flex justify-content-center'><div><button class='ms-3'><a class='text-dark text-decoration-none' href='" . url('padelReservations/deletematch/' . $checkedDates[0]) . "'>Cancelar</a></button></div></div></div>";
-            $state = "Sin plazas";
+            $state = "Reservado";
         } else if ($checkedDates[1] == 0) {
             $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>No hay partidos reservados partidos a ésta hora. Quieres reservar" . "</p>" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
@@ -222,6 +223,7 @@ class PadelReservationsController extends Controller
             <input type='hidden' name='matchLevel' value='$checkedDates[3]'>
             <div class='d-flex justify-content-center'><div><button type='submit'>Reservar</button></div></div>
             </form></div>";
+            $state = "Hay plazas";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 3 && $checkedDates[2] == 0 && Db::Table('users')->where('id', auth()->user()->id)->value('padelLevel') == $checkedDates[3]) {
             $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Hay un partido reservado pero quedan " . (4 - $checkedDates[1]) . " plazas. Quieres reservar"  . "</p>" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
@@ -230,6 +232,7 @@ class PadelReservationsController extends Controller
             <input type='hidden' name='matchLevel' value='$checkedDates[3]'>
             <div class='d-flex justify-content-center'><div><button type='submit'>Reservar</button></div></div>
             </form></div>";
+            $state = "Hay plazas";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 3 && $checkedDates[2] == 0 && Db::Table('users')->where('id', auth()->user()->id)->value('padelLevel') != $checkedDates[3]) {
             $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Aún quedan plazas para éste partido pero no tienes el nivel para participar</p></div>";
             $state = "Sin plazas";
@@ -268,7 +271,7 @@ class PadelReservationsController extends Controller
 
         $checkdatesAr3 = null;
 
-        return view('reservations.indexPadel', compact('checkdatesAr3'));
+        return redirect()->back()->with('checkdatesAr3');
     }
 
     public function deletematch($matchdate)
@@ -279,7 +282,9 @@ class PadelReservationsController extends Controller
         echo "alert('La plaza se ha cancelado con éxito');";
         echo "</script>";
 
-        return view('reservations.indexPadel');
+        $checkdatesAr3 = array(null);
+
+        return redirect()->back()->with('checkdatesAr3');
     }
 }
 

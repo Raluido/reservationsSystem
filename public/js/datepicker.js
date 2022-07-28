@@ -37,6 +37,9 @@ function changeBackground(year, month) {
             var day = d.getDate();
             // retrieve all elements containing day
             var elements = $("a:contains(" + day + ")");
+
+            console.log(events[date][0]["Estado"]);
+            console.log(events[date][0]["Estado "]);
             if (
                 events[date][0]["Estado"] == "Sin plazas" &&
                 events[date][0]["Estado "] == "Sin plazas"
@@ -46,12 +49,33 @@ function changeBackground(year, month) {
                         $(this).css("background", "red");
                     }
                 });
-            } else
+            } else if (
+                (events[date][0]["Estado"] == "Sin plazas" &&
+                    events[date][0]["Estado "] == "Hay plazas") ||
+                (events[date][0]["Estado"] == "Hay plazas" &&
+                    events[date][0]["Estado "] == "Sin plazas") ||
+                (events[date][0]["Estado"] == "Hay plazas" &&
+                    events[date][0]["Estado "] == "Hay plazas")
+            ) {
                 elements.each(function (index) {
                     if ($(this).text() == day) {
                         $(this).css("background", "green");
                     }
                 });
+            } else if (
+                (events[date][0]["Estado"] == "Reservado" &&
+                    events[date][0]["Estado "] == "Hay plazas") ||
+                (events[date][0]["Estado"] == "Hay plazas" &&
+                    events[date][0]["Estado "] == "Hay plazas") ||
+                (events[date][0]["Estado"] == "Reservado" &&
+                    events[date][0]["Estado "] == "Reservado")
+            ) {
+                elements.each(function (index) {
+                    if ($(this).text() == day) {
+                        $(this).css("background", "orange");
+                    }
+                });
+            }
         }
     }
 }
