@@ -70,7 +70,7 @@ class UsersController extends Controller
             'password'   =>   $password
         );
 
-        Mail::to($user->email)->send(new ContactMail($data));
+        Mail::to('raluido@gmail.com')->send(new ContactMail($data));
 
 
         $user->save();

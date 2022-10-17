@@ -1,117 +1,115 @@
 @extends('layouts.app-master')
 
 @section('content')
-    <div class="bg-light p-4 rounded">
-        <div class="d-flex justify-content-center ">
-            <h2>Reservar padel</h2>
+<div class="bg-light p-4 rounded">
+    <div class="d-flex justify-content-center ">
+        <h2>Reservar padel</h2>
+    </div>
+    <div class="container mt-5">
+        <div class="">
+            <h4></h4>
+            <p></p>
         </div>
-        <div class="container mt-5">
-            <div class="">
-                <h4></h4>
-                <p></p>
-            </div>
-            <input type="hidden" value="{{ json_encode($checkdatesAr3) }}" id="checkeddata">
-            {{-- <input type="hidden" value="{{ json_encode($checkdatesAr4) }}" id="checkeddata1"> --}}
-            {{-- <input type="hidden" value="{{ json_encode($checkdatesAr5) }}" id="checkeddata2"> --}}
-            <div class="d-flex">
-                <div class="mt-5" id="datepicker"></div>
-                <div class="ms-5" id="dateevents"></div>
-            </div>
+        <input type="hidden" value="{{ json_encode($checkdatesAr3) }}" id="checkeddata">
+        <div class="d-flex">
+            <div class="mt-5" id="datepicker"></div>
+            <div class="ms-5" id="dateevents"></div>
         </div>
     </div>
-    {{-- <script>
-        var data = @json($checkdatesAr3);
+</div>
+<!-- <script>
+    var data = @json($checkdatesAr3);
 
-        console.log(data);
+    console.log(data);
 
-        function disableDates(date) {
-            var dow = date.getDay();
-            if (dow > 5 || dow < 1) return [false, ""];
-            return [true, ""];
-        }
+    function disableDates(date) {
+        var dow = date.getDay();
+        if (dow > 5 || dow < 1) return [false, ""];
+        return [true, ""];
+    }
 
-        var events = {
-            "2022-07-29": [{
-                title: "Friday!!!!",
-                description: "Weekend is starting!!!",
-            }, ],
-            "2022-07-26": [{
-                title: "Friday!!!!",
-                description: "Weekend is starting!!!",
-            }, ],
-            "2022-07-25": [{
-                title: "Friday!!!!",
-                description: "Weekend is starting!!!",
-            }, ],
-        };
+    var events = {
+        "2022-07-29": [{
+            title: "Friday!!!!",
+            description: "Weekend is starting!!!",
+        }, ],
+        "2022-07-26": [{
+            title: "Friday!!!!",
+            description: "Weekend is starting!!!",
+        }, ],
+        "2022-07-25": [{
+            title: "Friday!!!!",
+            description: "Weekend is starting!!!",
+        }, ],
+    };
 
-        var today = new Date();
+    var today = new Date();
 
-        // Setup our datepicker
-        $("#datepicker").datepicker({
-            dateFormat: "yy-mm-dd",
-            maxDate: 15,
-            minDate: today,
-            onSelect: findEvents,
-            beforeShowDay: disableDates,
-            onChangeMonthYear: function(year, month) {
-                setTimeout(changeBackground, 1, year, month);
-            },
-        });
+    // Setup our datepicker
+    $("#datepicker").datepicker({
+        dateFormat: "yy-mm-dd",
+        maxDate: 15,
+        minDate: today,
+        onSelect: findEvents,
+        beforeShowDay: disableDates,
+        onChangeMonthYear: function(year, month) {
+            setTimeout(changeBackground, 1, year, month);
+        },
+    });
 
-        var d = new Date();
-        changeBackground(d.getFullYear(), d.getMonth() + 1);
+    var d = new Date();
+    changeBackground(d.getFullYear(), d.getMonth() + 1);
 
-        function changeBackground(year, month) {
-            for (var date in events) {
-                var d = new Date(date);
-                // if same day and year
-                if (d.getFullYear() === year && d.getMonth() + 1 === month) {
-                    var day = d.getDate();
-                    // retrieve all elements containing day
-                    var elements = $("a:contains(" + day + ")");
-                    elements.each(function(index) {
-                        if ($(this).text() == day) {
-                            $(this).css("background", "green");
-                        }
-                    });
-                }
-            }
-        }
-
-        // Provide a function to find and display events
-        function findEvents(date) {
+    function changeBackground(year, month) {
+        for (var date in events) {
             var d = new Date(date);
-            setTimeout(changeBackground, 1, d.getFullYear(), d.getMonth() + 1);
-
-            // Start by emptying our data container
-            $("#dateevents").empty();
-            // Potential date object
-            var dateObj = events[date];
-            // If no events exist for the selected date
-            if (!dateObj) {
-                return $("#dateevents").html("<h2>" + date + ": No Events</h2>");
-            }
-            // If we've made it this far, we have events!
-            $("#dateevents").html(
-                "<h2>" + date + ": " + dateObj.length + " Events Planned</h2>"
-            );
-            // Cycle over every event for this date
-            $.each(dateObj, function(index, event) {
-                // Build a list for each event
-                var $list = $("<ul>");
-                // Add all event details to list
-                $.each(event, function(name, desc) {
-                    $("<li>")
-                        .html(name + ": " + desc)
-                        .appendTo($list);
+            // if same day and year
+            if (d.getFullYear() === year && d.getMonth() + 1 === month) {
+                var day = d.getDate();
+                // retrieve all elements containing day
+                var elements = $("a:contains(" + day + ")");
+                elements.each(function(index) {
+                    if ($(this).text() == day) {
+                        $(this).css("background", "green");
+                    }
                 });
-                // Place list in container
-                $list.appendTo("#dateevents");
-            });
+            }
         }
-    </script> --}}
+    }
+
+    // Provide a function to find and display events
+    function findEvents(date) {
+        var d = new Date(date);
+        setTimeout(changeBackground, 1, d.getFullYear(), d.getMonth() + 1);
+
+        // Start by emptying our data container
+        $("#dateevents").empty();
+        // Potential date object
+        var dateObj = events[date];
+        // If no events exist for the selected date
+        if (!dateObj) {
+            return $("#dateevents").html("<h2>" + date + ": No Events</h2>");
+        }
+        // If we've made it this far, we have events!
+        $("#dateevents").html(
+            "<h2>" + date + ": " + dateObj.length + " Events Planned</h2>"
+        );
+        // Cycle over every event for this date
+        $.each(dateObj, function(index, event) {
+            // Build a list for each event
+            var $list = $("<ul>");
+            // Add all event details to list
+            $.each(event, function(name, desc) {
+                $("<li>")
+                    .html(name + ": " + desc)
+                    .appendTo($list);
+            });
+            // Place list in container
+            $list.appendTo("#dateevents");
+        });
+    }
+</script> -->
 @endsection
 @section('js')
-    <script src="{{ asset('js/datepicker.js') }}" defer></script>
+<script src="{{ asset('js/datepicker.js') }}" defer></script>
 @endsection

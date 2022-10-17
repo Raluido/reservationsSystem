@@ -1,35 +1,51 @@
 @extends('layouts.app-master')
 
 @section('content')
-    <div class="container mt-3">
-        <h2>Gestión de reservas</h2>
+<div class="container mt-3 mb-5">
+    <h2>Gestión de reservas</h2>
 
-        <div class="mt-5 row">
-            <h5 class="fw-bold">Yoga</h5>
+    <div class="mt-5">
+        <h5 class="fw-bold mb-3">Yoga</h5>
+        <table class="table table-striped">
+            <tr>
+                <th scope="col" width="10%">Usuarios</th>
+                <th scope="col" width="20%">Fechas</th>
+                <th scope="col" width="10%">Eliminar</th>
+            </tr>
             @foreach ($yogaReservations as $yogaReservation)
-                <div class="d-flex justify-content-center border mt-3 col-12 col-md-6 col-lg-4">
-                    <div class="">
-                        <p class="mt-3">{{ $yogaReservation->name }}</p>
-                        <p class="mt-3">{{ $yogaReservation->reservation_date }}</p>
-                        {{-- <button class='ms-3 mb-3'><a class='text-dark text-decoration-none'
-                                href="userReservations/deleteYoga/{{ $yogaReservation->reservation_date }}">Cancelar</a></button> --}}
-                    </div>
+            <tr>
+                <td scope="col" width="10%">{{ $yogaReservation->name }}</td>
+                <td scope="col" width="20%">{{ $yogaReservation->reservation_date }}</td>
+                <td>
+                    {!! Form::open(['method' => 'DELETE','route' => ['reservations.destroyYoga', $yogaReservation->idYogaReservation],'style'=>'display:inline']) !!}
+                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                    {!! Form::close() !!}
+                </td>
+            </tr>
             @endforeach
-        </div>
-
-        <div class="mt-5 row">
-            <h5 class="fw-bold">Padel</h5>
-            @foreach ($padelReservations as $padelReservation)
-                <div class="d-flex justify-content-center border mt-3 col-12 col-md-6 col-lg-4">
-                    <div class="">
-                        <p class="mt-3">{{ $padelReservation->name }}</p>
-                        <p class="mt-3">{{ $padelReservation->match_level }}</p>
-                        <p class="mt-3">{{ $padelReservation->reservation_date }}</p>
-                        {{-- <button class='ms-3 mb-3'><a class='text-dark text-decoration-none'
-                                href="userReservations/deletePadel/{{ $padelReservation->reservation_date }}">Cancelar</a></button> --}}
-                    </div>
-                </div>
-            @endforeach
-        </div>
+        </table>
     </div>
+
+    <div class="mt-5">
+        <h5 class="fw-bold mb-3">Padel</h5>
+        <table class="table table-striped">
+            <tr>
+                <th scope="col" width="10%">Usuarios</th>
+                <th scope="col" width="20%">Fechas</th>
+                <th scope="col" width="10%">Eliminar</th>
+            </tr>
+            @foreach ($padelReservations as $padelReservation)
+            <tr>
+                <td scope="col" width="10%">{{ $padelReservation->name }}</td>
+                <td scope="col" width="20%">{{ $padelReservation->reservation_date }}</td>
+                <td>
+                    {!! Form::open(['method' => 'DELETE','route' => ['reservations.destroyPadel', $padelReservation->idPadelReservation],'style'=>'display:inline']) !!}
+                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                    {!! Form::close() !!}
+                </td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+</div>
 @endsection
