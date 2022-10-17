@@ -41,9 +41,11 @@ class PadelReservationsController extends Controller
                     $checkdatesAr1 = $this->result($checkedDates);
 
                     $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
 
                     $checkDay1 = $dayOfWeekPlus . ' 18:30:00';
@@ -56,9 +58,11 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    $checkdatesAr4['Hora '] = $hours2;
-                    $checkdatesAr4['Estado '] = $checkdatesAr2[1];
-                    $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
                     $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
@@ -75,9 +79,11 @@ class PadelReservationsController extends Controller
                     $checkdatesAr1 = $this->result($checkedDates);
 
                     $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
                     $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
                     $hours2 = '19:00:00';
@@ -89,9 +95,11 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    $checkdatesAr4['Hora '] = $hours2;
-                    $checkdatesAr4['Estado '] = $checkdatesAr2[1];
-                    $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
                     $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
@@ -107,9 +115,11 @@ class PadelReservationsController extends Controller
                     $checkdatesAr1 = $this->result($checkedDates);
 
                     $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
                     $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
                     $hours2 = '19:00:00';
@@ -121,9 +131,11 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    $checkdatesAr4['Hora '] = $hours2;
-                    $checkdatesAr4['Estado '] = $checkdatesAr2[1];
-                    $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
                     $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
@@ -139,9 +151,11 @@ class PadelReservationsController extends Controller
                     $checkdatesAr1 = $this->result($checkedDates);
 
                     $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
                     $checkDay1 = $dayOfWeekPlus . ' 19:00:00';
                     $hours2 = '19:00:00';
@@ -153,9 +167,11 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    $checkdatesAr4['Hora '] = $hours2;
-                    $checkdatesAr4['Estado '] = $checkdatesAr2[1];
-                    $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
                     $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
@@ -171,9 +187,11 @@ class PadelReservationsController extends Controller
                     $checkdatesAr1 = $this->result($checkedDates);
 
                     $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
                     $checkDay1 = $dayOfWeekPlus . ' 18:30:00';
                     $hours2 = '18:30:00';
@@ -185,9 +203,11 @@ class PadelReservationsController extends Controller
 
                     $checkdatesAr2 = $this->result($checkedDates);
 
-                    $checkdatesAr4['Hora '] = $hours2;
-                    $checkdatesAr4['Estado '] = $checkdatesAr2[1];
-                    $checkdatesAr4['Información '] = $checkdatesAr2[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
                     $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
@@ -242,7 +262,12 @@ class PadelReservationsController extends Controller
 
     public function creatematch(Request $request)
     {
-        if (Db::Table('padel_reservations')->where('reservation_date', $request->input('reservationDate'))->where('user_id', auth()->user()->id)->get()->count() == 0) {
+        if (Db::Table('padel_reservations')
+            ->where('reservation_date', $request->input('reservationDate'))
+            ->where('user_id', auth()->user()->id)
+            ->get()
+            ->count() == 0
+        ) {
 
             $padelReservation = new PadelReservation();
             $padelReservation->user_id = auth()->user()->id;

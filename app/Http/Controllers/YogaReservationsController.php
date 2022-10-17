@@ -30,33 +30,31 @@ class YogaReservationsController extends Controller
             switch ($dayOfWeek) {
                 case 1:
 
-                    $checkDay0 = $dayOfWeekPlus . ' 11:15:00';
-                    $hours1 = '11:15:00';
-                    $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-                    $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                    // $timetable = Db::Table('timetable')->where('day', 1)->get();
 
-                    $checkedDates = [$checkDay0, $hour1R, $hour1RU];
+                    // if ($timetable != null) {
 
-                    $checkdatesAr1 = $this->result($checkedDates);
+                    //     foreach ($timetable as $index) {
 
-                    $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    //         $checkDay0 = $dayOfWeekPlus . ' ' . $index->time;
+                    //         $hours1 = $index->time;
+                    //         $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
+                    //         $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
 
-                    $checkDay0 = $dayOfWeekPlus . ' 17:15:00';
-                    $hours1 = '11:15:00';
-                    $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-                    $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                    //         $checkedDates = [$checkDay0, $hour1R, $hour1RU];
 
-                    $checkedDates = [$checkDay0, $hour1R, $hour1RU];
+                    //         $checkdatesAr1 = $this->result($checkedDates);
 
-                    $checkdatesAr1 = $this->result($checkedDates);
+                    //         $checkdatesAr4 = array();
+                    //         $arr = array();
+                    //         $arr['Hora'] = $hours1;
+                    //         $arr['Estado'] = $checkdatesAr1[1];
+                    //         $arr['Información'] = $checkdatesAr1[0];
+                    //         $checkdatesAr4[] = $arr;
+                    //     }
+                    // }
 
-                    $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    // $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
                 case 2:
@@ -71,9 +69,11 @@ class YogaReservationsController extends Controller
                     $checkdatesAr1 = $this->result($checkedDates);
 
                     $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
                     $checkDay0 = $dayOfWeekPlus . ' 18:15:00';
                     $hours1 = '18:15:00';
@@ -84,10 +84,12 @@ class YogaReservationsController extends Controller
 
                     $checkdatesAr1 = $this->result($checkedDates);
 
-                    $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
+                    $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
                 case 3:
@@ -101,9 +103,11 @@ class YogaReservationsController extends Controller
                     $checkdatesAr1 = $this->result($checkedDates);
 
                     $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
                     $checkDay0 = $dayOfWeekPlus . ' 20:15:00';
                     $hours1 = '20:15:00';
@@ -114,10 +118,12 @@ class YogaReservationsController extends Controller
 
                     $checkdatesAr1 = $this->result($checkedDates);
 
-                    $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
+                    $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
                 case 4:
@@ -131,9 +137,11 @@ class YogaReservationsController extends Controller
                     $checkdatesAr1 = $this->result($checkedDates);
 
                     $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
                     $checkDay0 = $dayOfWeekPlus . ' 21:15:00';
                     $hours1 = '21:15:00';
@@ -144,10 +152,12 @@ class YogaReservationsController extends Controller
 
                     $checkdatesAr1 = $this->result($checkedDates);
 
-                    $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
+                    $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
                 case 5:
@@ -162,9 +172,11 @@ class YogaReservationsController extends Controller
                     $checkdatesAr1 = $this->result($checkedDates);
 
                     $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
                     $checkDay0 = $dayOfWeekPlus . ' 19:15:00';
                     $hours1 = '19:15:00';
@@ -175,120 +187,22 @@ class YogaReservationsController extends Controller
 
                     $checkdatesAr1 = $this->result($checkedDates);
 
-                    $checkdatesAr4 = array();
-                    $checkdatesAr4['Hora'] = $hours1;
-                    $checkdatesAr4['Estado'] = $checkdatesAr1[1];
-                    $checkdatesAr4['Información'] = $checkdatesAr1[0];
+                    $arr = array();
+                    $arr['Hora'] = $hours1;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
+                    $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
+
                     break;
             }
-
-            $checkdatesAr3 = array_map(function ($array) {
-                return array((object)$array);
-            }, $checkdatesAr3);
         }
 
+        $checkdatesAr3 = array_map(function ($array) {
+            return array((object)$array);
+        }, $checkdatesAr3);
 
         return view('reservations.indexYoga', compact('checkdatesAr3'));
-    }
-
-    public function getcheckdate($checkdate)
-    {
-        $dayOfWeek = date("N", strtotime($checkdate));
-
-        switch ($dayOfWeek) {
-            case 1:
-                $mon1 = $checkdate . ' ' . '11:15:00';
-                $mon1R = Db::Table('yoga_reservations')->where('reservation_date', $mon1)->get()->count();
-                $mon1RU = Db::Table('yoga_reservations')->where('reservation_date', $mon1)->where('user_id', auth()->user()->id)->get()->count();
-                $mon2 = $checkdate . ' ' . '18:30:00';
-                $mon2R = Db::Table('yoga_reservations')->where('reservation_date', $mon2)->get()->count();
-                $mon2RU = Db::Table('yoga_reservations')->where('reservation_date', $mon2)->where('user_id', auth()->user()->id)->get()->count();
-
-                $checkedDates = [$mon1, $mon1R, $mon1RU];
-
-                $checkdatesAr1 = $this->result($checkedDates);
-
-                $checkedDates = [$mon2, $mon2R, $mon2RU];
-
-                $checkdatesAr2 = $this->result($checkedDates);
-
-                return [$checkdatesAr1, $checkdatesAr2];
-                break;
-            case 2:
-                $tue1 = $checkdate . ' ' . '10:15:00';
-                $tue1R = Db::Table('yoga_reservations')->where('reservation_date', $tue1)->get()->count();
-                $tue1RU = Db::Table('yoga_reservations')->where('reservation_date', $tue1)->where('user_id', auth()->user()->id)->get()->count();
-                $tue2 = $checkdate . ' ' . '19:00:00';
-                $tue2R = Db::Table('yoga_reservations')->where('reservation_date', $tue2)->get()->count();
-                $tue2RU = Db::Table('yoga_reservations')->where('reservation_date', $tue2)->where('user_id', auth()->user()->id)->get()->count();
-
-                $checkedDates = [$tue1, $tue1R, $tue1RU];
-
-                $checkdatesAr1 = $this->result($checkedDates);
-
-                $checkedDates = [$tue2, $tue2R, $tue2RU];
-
-                $checkdatesAr2 = $this->result($checkedDates);
-
-                return [$checkdatesAr1, $checkdatesAr2];
-                break;
-            case 3:
-                $wed1 = $checkdate . ' ' . '10:15:00';
-                $wed1R = Db::Table('yoga_reservations')->where('reservation_date', $wed1)->get()->count();
-                $wed1RU = Db::Table('yoga_reservations')->where('reservation_date', $wed1)->where('user_id', auth()->user()->id)->get()->count();
-                $wed2 = $checkdate . ' ' . '19:00:00';
-                $wed2R = Db::Table('yoga_reservations')->where('reservation_date', $wed2)->get()->count();
-                $wed2RU = Db::Table('yoga_reservations')->where('reservation_date', $wed2)->where('user_id', auth()->user()->id)->get()->count();
-
-                $checkedDates = [$wed1, $wed1R, $wed1RU];
-
-                $checkdatesAr1 = $this->result($checkedDates);
-
-                $checkedDates = [$wed2, $wed2R, $wed2RU];
-
-                $checkdatesAr2 = $this->result($checkedDates);
-
-                return [$checkdatesAr1, $checkdatesAr2];
-                break;
-            case 4:
-
-                $thu1 = $checkdate . ' ' . '10:15:00';
-                $thu1R = Db::Table('yoga_reservations')->where('reservation_date', $thu1)->get()->count();
-                $thu1RU = Db::Table('yoga_reservations')->where('reservation_date', $thu1)->where('user_id', auth()->user()->id)->get()->count();
-                $thu2 = $checkdate . ' ' . '19:00:00';
-                $thu2R = Db::Table('yoga_reservations')->where('reservation_date', $thu2)->get()->count();
-                $thu2RU = Db::Table('yoga_reservations')->where('reservation_date', $thu2)->where('user_id', auth()->user()->id)->get()->count();
-
-                $checkedDates = [$thu1, $thu1R, $thu1RU];
-
-                $checkdatesAr1 = $this->result($checkedDates);
-
-                $checkedDates = [$thu2, $thu2R, $thu2RU];
-
-                $checkdatesAr2 = $this->result($checkedDates);
-
-                return [$checkdatesAr1, $checkdatesAr2];
-                break;
-            case 5:
-
-                $fri1 = $checkdate . ' ' . '10:15:00';
-                $fri1R = Db::Table('yoga_reservations')->where('reservation_date', $fri1)->get()->count();
-                $fri1RU = Db::Table('yoga_reservations')->where('reservation_date', $fri1)->where('user_id', auth()->user()->id)->get()->count();
-                $fri2 = $checkdate . ' ' . '19:00:00';
-                $fri2R = Db::Table('yoga_reservations')->where('reservation_date', $fri2)->get()->count();
-                $fri2RU = Db::Table('yoga_reservations')->where('reservation_date', $fri2)->where('user_id', auth()->user()->id)->get()->count();
-
-                $checkedDates = [$fri1, $fri1R, $fri1RU];
-
-                $checkdatesAr1 = $this->result($checkedDates);
-
-                $checkedDates = [$fri2, $fri2R, $fri2RU];
-
-                $checkdatesAr2 = $this->result($checkedDates);
-
-                return [$checkdatesAr1, $checkdatesAr2];
-                break;
-        }
     }
 
     public function result($checkedDates)
@@ -299,18 +213,16 @@ class YogaReservationsController extends Controller
             $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Ya has reservado para ésta hora, quieres cancelar? " . "</p>" . "<div class='d-flex justify-content-center'><div><button class='ms-3'><a class='text-dark text-decoration-none' href='" . url('yogaReservations/cancelclasses/' . $checkedDates[0]) . "'>Cancelar</a></button></div></div></div>";
             $state = "Reservado";
         } else if ($checkedDates[1] == 0) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Hay plazas ésta hora, Quieres reservar" . "</p>" . "<form method='POST' action='/yogaReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Hay plazas ésta hora, quieres reservar?" . "</p>" . "<form method='POST' action='/yogaReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
             <input type='hidden' name='reservationDate' value='$checkedDates[0]'>
-            <input type='hidden' name='newBook' value='0'>
             <div class='d-flex justify-content-center'><div><button type='submit'>Reservar</button></div></div>
             </form></div>";
             $state = "Hay plazas";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 9 && $checkedDates[2] == 0) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Quedan " . (10 - $checkedDates[1]) . " plazas. Quieres reservar"  . "</p>" . "<form method='POST' action='/yogaReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Quedan " . (10 - $checkedDates[1]) . " plazas, quieres reservar?"  . "</p>" . "<form method='POST' action='/yogaReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
             <input type='hidden' name='reservationDate' value='$checkedDates[0]'>
-            <input type='hidden' name='newBook' value='0'>
             <div class='d-flex justify-content-center'><div><button type='submit'>Reservar</button></div></div>
             </form></div>";
             $state = "Hay plazas";
@@ -324,7 +236,13 @@ class YogaReservationsController extends Controller
 
     public function bookclasses(Request $request)
     {
-        if (Db::Table('yoga_reservations')->where('reservation_date', $request->input('reservationDate'))->where('user_id', auth()->user()->id)->get()->count() == 0) {
+        if (
+            Db::Table('yoga_reservations')
+            ->where('reservation_date', $request->input('reservationDate'))
+            ->where('user_id', auth()->user()->id)
+            ->get()
+            ->count() == 0
+        ) {
 
             $yogaReservation = new yogaReservation();
             $yogaReservation->user_id = auth()->user()->id;
@@ -341,7 +259,9 @@ class YogaReservationsController extends Controller
             echo "</script>";
         }
 
-        return view('reservations.indexYoga');
+        $checkdatesAr3 = null;
+
+        return redirect()->back()->with('checkdatesAr3');
     }
 
     public function cancelclasses($matchdate)
@@ -352,6 +272,8 @@ class YogaReservationsController extends Controller
         echo "alert('La plaza se ha cancelado con éxito');";
         echo "</script>";
 
-        return view('reservations.indexYoga');
+        $checkdatesAr3 = null;
+
+        return redirect()->back()->with('checkdatesAr3');
     }
 }

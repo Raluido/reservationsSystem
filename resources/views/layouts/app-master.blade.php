@@ -43,7 +43,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/moment.min.js') }}" defer></script>
     <script src="{{ asset('js/daterangepicker.js') }}" defer></script>
-    @yield('js')
+    <script src="{{ asset('js/datepicker.js') }}" defer></script>
 </body>
 
 </html>

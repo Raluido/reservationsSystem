@@ -18,6 +18,3 @@
     </div>
 </div>
 @endsection
-@section('js')
-<script src="{{ asset('js/datepickerYoga.js') }}" defer></script>
-@endsection

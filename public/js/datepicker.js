@@ -1,11 +1,5 @@
 var data = document.getElementById("checkeddata");
-// var data1 = document.getElementById("checkeddata1");
-// var data2 = document.getElementById("checkeddata2");
-
 var events = JSON.parse(data.value);
-
-// console.log(events);
-
 var today = new Date();
 
 // Setup our datepicker
@@ -37,50 +31,45 @@ function changeBackground(year, month) {
             var day = d.getDate();
             // retrieve all elements containing day
             var elements = $("a:contains(" + day + ")");
+            var i = 0;
+            var x = 0;
+            var y = 0;
 
-            // console.log(events[date][0]["Estado"]);
-            // console.log(events[date][0]["Estado "]);
-            if (
-                events[date][0]["Estado"] == "Sin plazas" &&
-                events[date][0]["Estado "] == "Sin plazas"
-            ) {
+            console.log(events[date][0]);
+
+            for (let index = 1; index < events[date][0].length; index++) {
+                if (events[date][0][index]["Estado"] == "Sin plazas") {                  
+                    i++;
+                } else if (events[date][0][index]["Estado"] == "Hay plazas") {
+                    x++;
+                } else if (events[date][0][index]["Estado"] == "Reservado") {
+                    y++;
+                }
+            }
+
+            if (i == events[date][0].length) {
                 elements.each(function (index) {
                     if ($(this).text() == day) {
                         $(this).css("background", "red");
                     }
                 });
-            } else if (
-                (events[date][0]["Estado"] == "Sin plazas" &&
-                    events[date][0]["Estado "] == "Hay plazas") ||
-                (events[date][0]["Estado"] == "Hay plazas" &&
-                    events[date][0]["Estado "] == "Sin plazas") ||
-                (events[date][0]["Estado"] == "Hay plazas" &&
-                    events[date][0]["Estado "] == "Hay plazas")
-            ) {
-                elements.each(function (index) {
-                    if ($(this).text() == day) {
-                        $(this).css("background", "green");
-                    }
-                });
-            } else if (
-                (events[date][0]["Estado"] == "Reservado" &&
-                    events[date][0]["Estado "] == "Hay plazas") ||
-                (events[date][0]["Estado"] == "Hay plazas" &&
-                    events[date][0]["Estado "] == "Hay plazas") ||
-                (events[date][0]["Estado"] == "Reservado" &&
-                    events[date][0]["Estado "] == "Reservado") ||
-                (events[date][0]["Estado"] == "Hay plazas" &&
-                    events[date][0]["Estado "] == "Reservado")
-            ) {
+            } else if (y >= 1) {
                 elements.each(function (index) {
                     if ($(this).text() == day) {
                         $(this).css("background", "orange");
+                    }
+                });
+            } else if (y >= 1) {
+                elements.each(function (index) {
+                    if ($(this).text() == day) {
+                        $(this).css("background", "green");
                     }
                 });
             }
         }
     }
 }
+
 
 // Provide a function to find and display events
 function findEvents(date) {
@@ -90,7 +79,7 @@ function findEvents(date) {
     // Start by emptying our data container
     $("#dateevents").empty();
     // Potential date object
-    var dateObj = events[date];
+    var dateObj = events[date][0];
     // If no events exist for the selected date
     if (!dateObj) {
         return $("#dateevents").html("<h2>" + date + ": No Events</h2>");
@@ -112,26 +101,3 @@ function findEvents(date) {
         $list.appendTo("#dateevents");
     });
 }
-
-// var events2 = {
-//     "2022-07-29": [
-//         {
-//             title: "Friday!!!!",
-//             description: "Weekend is starting!!!",
-//         },
-//     ],
-//     "2022-07-26": [
-//         {
-//             title: "Friday!!!!",
-//             description: "Weekend is starting!!!",
-//         },
-//     ],
-//     "2022-07-25": [
-//         {
-//             title: "Friday!!!!",
-//             description: "Weekend is starting!!!",
-//         },
-//     ],
-// };
-
-// console.log((events2["2022-07-29"][0]["title"]));
