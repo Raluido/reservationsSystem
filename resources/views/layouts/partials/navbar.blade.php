@@ -24,6 +24,8 @@
                                 </li>
                                 <li><a class="dropdown-item" href="{{ route('reservations.adminReservations') }}">Reservas</a>
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('activities.create') }}">Crear horario</a>
+                                </li>
                             </ul>
                         </li>
                         @endrole

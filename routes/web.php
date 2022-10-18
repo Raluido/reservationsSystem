@@ -67,6 +67,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::delete('/{idYogaReservation}', 'AdminReservationsController@destroyYoga')->name('reservations.destroyYoga');
         });
 
+        Route::group(['prefix' => 'activity'], function () {
+            Route::get('/create', 'TimetableController@create')->name('activities.create');
+        });
+
         /**
          * User Routes
          */
@@ -79,14 +83,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::group(['prefix' => 'padelReservations'], function () {
             Route::get('/', 'PadelReservationsController@index')->name('reservations.indexPadel');
-            // Route::get('/getcheckdate/{checkdate}', 'PadelReservationsController@getcheckdate')->name('reservations.getPadelDate');
             Route::post('/', 'PadelReservationsController@creatematch')->name('reservations.createPadelMatch');
             Route::get('/deletematch/{matchdate}', 'PadelReservationsController@deletematch')->name('reservations.deletePadelMatch');
         });
 
         Route::group(['prefix' => 'yogaReservations'], function () {
             Route::get('/', 'YogaReservationsController@index')->name('reservations.indexYoga');
-            // Route::get('/getcheckdate/{checkdate}', 'YogaReservationsController@getcheckdate')->name('reservations.getYogaDate');
             Route::post('/', 'YogaReservationsController@bookclasses')->name('reservations.bookYogaClasses');
             Route::get('/cancelclasses/{bookdate}', 'YogaReservationsController@cancelclasses')->name('reservations.cancelYogaClasses');
         });

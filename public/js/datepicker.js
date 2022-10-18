@@ -35,10 +35,8 @@ function changeBackground(year, month) {
             var x = 0;
             var y = 0;
 
-            console.log(events[date][0]);
-
-            for (let index = 1; index < events[date][0].length; index++) {
-                if (events[date][0][index]["Estado"] == "Sin plazas") {                  
+            for (let index = 0; index < Object.keys(events[date][0]).length; index++) {
+                if (events[date][0][index]["Estado"] == "Sin plazas") {
                     i++;
                 } else if (events[date][0][index]["Estado"] == "Hay plazas") {
                     x++;
@@ -47,7 +45,7 @@ function changeBackground(year, month) {
                 }
             }
 
-            if (i == events[date][0].length) {
+            if (i == Object.keys(events[date][0]).length) {
                 elements.each(function (index) {
                     if ($(this).text() == day) {
                         $(this).css("background", "red");
@@ -59,7 +57,7 @@ function changeBackground(year, month) {
                         $(this).css("background", "orange");
                     }
                 });
-            } else if (y >= 1) {
+            } else if (x >= 1) {
                 elements.each(function (index) {
                     if ($(this).text() == day) {
                         $(this).css("background", "green");
@@ -79,25 +77,27 @@ function findEvents(date) {
     // Start by emptying our data container
     $("#dateevents").empty();
     // Potential date object
-    var dateObj = events[date][0];
     // If no events exist for the selected date
-    if (!dateObj) {
+    try {
+        var dateObj = [];
+        for (let index = 0; index < Object.keys(events[date][0]).length; index++) {
+            dateObj[index] = events[date][0][index];
+        }
+        $("#dateevents").html("<h2>" + date + ": Horas disponibles</h2>");
+        // Cycle over every event for this date
+        $.each(dateObj, function (index, event) {
+            // Build a list for each event
+            var $list = $("<div>");
+            // Add all event details to list
+            $.each(event, function (name, desc) {
+                $("<div>")
+                    .html(name + ": " + desc)
+                    .appendTo($list);
+            });
+            // Place list in container
+            $list.appendTo("#dateevents");
+        });
+    } catch (error) {
         return $("#dateevents").html("<h2>" + date + ": No Events</h2>");
     }
-
-    // If we've made it this far, we have events!
-    $("#dateevents").html("<h2>" + date + ": Horas disponibles</h2>");
-    // Cycle over every event for this date
-    $.each(dateObj, function (index, event) {
-        // Build a list for each event
-        var $list = $("<div>");
-        // Add all event details to list
-        $.each(event, function (name, desc) {
-            $("<div>")
-                .html(name + ": " + desc)
-                .appendTo($list);
-        });
-        // Place list in container
-        $list.appendTo("#dateevents");
-    });
 }

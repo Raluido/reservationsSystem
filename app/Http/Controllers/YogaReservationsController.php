@@ -30,31 +30,31 @@ class YogaReservationsController extends Controller
             switch ($dayOfWeek) {
                 case 1:
 
-                    // $timetable = Db::Table('timetable')->where('day', 1)->get();
+                    $timetable = Db::Table('activities')->where('dayOfTheWeek', 1)->get();
 
-                    // if ($timetable != null) {
+                    if ($timetable != null) {
 
-                    //     foreach ($timetable as $index) {
+                        foreach ($timetable as $index) {
 
-                    //         $checkDay0 = $dayOfWeekPlus . ' ' . $index->time;
-                    //         $hours1 = $index->time;
-                    //         $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-                    //         $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                            $checkDay0 = $dayOfWeekPlus . ' ' . $index->time;
+                            $hours1 = $index->time;
+                            $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
+                            $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
 
-                    //         $checkedDates = [$checkDay0, $hour1R, $hour1RU];
+                            $checkedDates = [$checkDay0, $hour1R, $hour1RU];
 
-                    //         $checkdatesAr1 = $this->result($checkedDates);
+                            $checkdatesAr1 = $this->result($checkedDates);
 
-                    //         $checkdatesAr4 = array();
-                    //         $arr = array();
-                    //         $arr['Hora'] = $hours1;
-                    //         $arr['Estado'] = $checkdatesAr1[1];
-                    //         $arr['Información'] = $checkdatesAr1[0];
-                    //         $checkdatesAr4[] = $arr;
-                    //     }
-                    // }
+                            $checkdatesAr4 = array();
+                            $arr = array();
+                            $arr['Hora'] = $hours1;
+                            $arr['Estado'] = $checkdatesAr1[1];
+                            $arr['Información'] = $checkdatesAr1[0];
+                            $checkdatesAr4[] = $arr;
+                        }
+                    }
 
-                    // $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
+                    $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
 
                     break;
                 case 2:
