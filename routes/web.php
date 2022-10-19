@@ -69,6 +69,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::group(['prefix' => 'activity'], function () {
             Route::get('/create', 'TimetableController@create')->name('activities.create');
+            Route::post('/create', 'TimetableController@store')->name('activities.store');
         });
 
         /**

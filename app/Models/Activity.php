@@ -22,8 +22,9 @@ class Activity extends Authenticatable
     protected $table = 'activities';
 
     protected $fillable = [
-        'activity',
+        'name',
         'dayOfTheWeek',
-        'time',
+        'start',
+        'finish',
     ];
 }

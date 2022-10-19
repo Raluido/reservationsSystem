@@ -9,18 +9,24 @@ class TimetableController extends Controller
 {
     public function create()
     {
-        return view('reservations.create');
+        return view('activities.create');
     }
 
-    public function update(Request $request)
+    public function store(Request $request)
     {
         $activity = new Activity();
-        $activity = $request->input('activity');
-        $activity = $request->input('dayOfTheWeek');
-        $activity = $request->input('time');
+        $activity->name = $request->input('name');
+        $activity->dayOfTheWeek = $request->input('dayOfTheWeek');
+        $activity->start = $request->input('start');
+        $activity->finish = $request->input('finish');
 
-        $activity->save();
+        if (strtotime($request->input('start')) < strtotime($request->input('finish'))) {
+            $activity->save();
+        } else {
+            echo '<div>El horario de finalización debe de ser posterior al de inicio</div>';
+        }
 
-        return redirect();
+
+        return redirect()->back();
     }
 }
