@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class Activity extends Authenticatable
+class Timetable extends Authenticatable
 {
     use HasFactory;
 
@@ -19,11 +19,12 @@ class Activity extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $table = 'activities';
+    protected $table = 'timetables';
 
-    protected $fillable = ['activity_id'];
-
-    public function timetables() {
-        return $this->hasMany(Timetable::class, 'activity_id', 'id');
-    }
+    protected $fillable = [
+        'dayOfTheWeek',
+        'start',
+        'finish',
+        'activity_id',
+    ];
 }
