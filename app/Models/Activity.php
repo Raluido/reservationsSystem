@@ -20,8 +20,4 @@ class Activity extends Authenticatable
      */
 
     protected $table = 'activities';
-
-    public function timetables() {
-        return $this->hasMany(Timetable::class, 'activity_id', 'id');
-    }
 }

@@ -8,67 +8,53 @@
     </div>
 
     <div class="container mt-4">
-        <form method="POST" action="">
-            @csrf
-            <div class="row">
-                <div class="col-6">
-                    @if ($errors->any())
-                    <div class="alert alert-danger" role="alert">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                    @if (Session::has('success'))
-                    <div class="alert alert-success text-center">
-                        <p>{{ Session::get('success') }}</p>
-                    </div>
-                    @endif
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Actividad</label>
-                        <input name="name" for="name" id="name" class="form-control" />
-                        @if ($errors->has('name'))
-                        <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                        @endif
-                    </div>
-                    @for($i = 0; $i < count($activityList); $i++;) <table class="table table-bordered" id="dynamicAddRemove">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Día de la semana</th>
-                            <th>Comienzo de la clase</th>
-                            <th>Final de la clase</th>
-                            <th>Acción</th>
-                        </tr>
-                        <tr>
-                            <td>
-                            <td><input value="{{ $activityList-> }}" type="text" class="form-control" name="name" placeholder="Nombre" required /></td>
-                            <td><select name="{{ dayOfTheWeek . $i }}" id="type" class="form-control">
-                                    <option value="Monday">Lunes</option>
-                                    <option value="Tuesday">Martes</option>
-                                    <option value="Wednesday">Miércoles</option>
-                                    <option value="Thursday">Jueves</option>
-                                    <option value="Friday">Viernes</option>
-                                    <option value="Saturday">Sábado</option>
-                                    <option value="Sunday">Domingo</option>
-                                </select></td>
-                            <td><input value="" type="time" class="form-control" name="start[0]" placeholder="comienzo" required /></td>
-                            <td><input value="" type="time" class="form-control" name="finish[0]" placeholder="Final" required /></td>
-                            <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Añadir nueva clase</button></td>
-                        </tr>
-                        </table>
-                        @endfor
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary mt-3">Crear nueva actividad</button>
-                            <button href="{{ route('home.index') }}" class="btn btn-secondary mt-3">Atrás</button>
-                        </div>
-                </div>
+        <div class="d-flex justify-content-end">
+            <div class="">
+                <button type="button" name="add" id="dynamic-ar1" class="btn btn-primary">Añadir nueva
+                    clase</button>
             </div>
-        </form>
+        </div>
+        <table class="table table-striped" id="dynamicAddRemove1">
+            <thead>
+                <tr>
+                    <th scope="col" width="10%">Actividad</th>
+                    <th scope="col" width="5%">Número de plazas</th>
+                    <th scope="col" width="20%">Acción</th>
+                    <th scope="col" width="1%" colspan="3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(count($activityList) != 0)
+                @for($i = 0; count($activityList) / 2 > $i; $i++)
+                <tr>
+                    <td><input name="name" for="name" id="name" value="{{ $index->name }}" class="form-control" /></td>
+                    <td><input name="places" for="places" id="places" value="{{ $index->places }}"
+                            class="form-control" /></td>
+                    <td><a href="" class="">Editar</a></td>
+                    <td>{!! Form::open(['method' => 'DELETE','route' => ['activities.destroy',
+                        $activity->id],'style'=>'display:inline']) !!}
+                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
+                        {!! Form::close() !!}
+                    </td>
+                </tr>
+                @endfor
+                @else
+                <tr>
+                    <td>{!! Form::open(['method' => 'POST','route' => ['activities.store'],'style'=>'display:inline'])
+                        !!}</td>
+                    <td><input name="name[0]" for="name" id="name" class="form-control" /></td>
+                    <td><input name="places[0]" for="places" id="places" class="form-control" /></td>
+                    <td>{!! Form::submit('Store', ['class' => 'btn btn-succsess btn-sm']) !!}
+                        {!! Form::close() !!}
+                    </td>
+                </tr>
+                @endif
+            </tbody>
+        </table>
     </div>
 </div>
 @endsection
 @section('js')
 <script src="{{ asset('js/dynamicAddRemove.js') }}" defer></script>
+<script src="{{ asset('js/dynamicAddRemove1.js') }}" defer></script>
 @endsection

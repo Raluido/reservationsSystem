@@ -15,10 +15,7 @@ class CreateTimetablesTable extends Migration
     {
         Schema::create('timetables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('activity_id')
-                ->constrained('activities')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->integer('activity_id');
             $table->string('dayOfTheWeek');
             $table->time('start');
             $table->time('finish');

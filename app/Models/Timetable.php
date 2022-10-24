@@ -20,10 +20,4 @@ class Timetable extends Authenticatable
      */
 
     protected $table = 'timetables';
-
-    protected $fillable = [
-        'dayOfTheWeek',
-        'start',
-        'finish',
-    ];
 }
