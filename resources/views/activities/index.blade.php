@@ -33,15 +33,18 @@
                         <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                         @endif
                     </div>
-                    <table class="table table-bordered" id="dynamicAddRemove">
+                    @for($i = 0; $i < count($activityList); $i++;) <table class="table table-bordered" id="dynamicAddRemove">
                         <tr>
+                            <th>Nombre</th>
                             <th>Día de la semana</th>
                             <th>Comienzo de la clase</th>
                             <th>Final de la clase</th>
                             <th>Acción</th>
                         </tr>
                         <tr>
-                            <td><select name="dayOfTheWeek[0]" id="type" class="form-control">
+                            <td>
+                            <td><input value="{{ $activityList-> }}" type="text" class="form-control" name="name" placeholder="Nombre" required /></td>
+                            <td><select name="{{ dayOfTheWeek . $i }}" id="type" class="form-control">
                                     <option value="Monday">Lunes</option>
                                     <option value="Tuesday">Martes</option>
                                     <option value="Wednesday">Miércoles</option>
@@ -54,11 +57,12 @@
                             <td><input value="" type="time" class="form-control" name="finish[0]" placeholder="Final" required /></td>
                             <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Añadir nueva clase</button></td>
                         </tr>
-                    </table>
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary mt-3">Crear nueva actividad</button>
-                        <button href="{{ route('home.index') }}" class="btn btn-secondary mt-3">Atrás</button>
-                    </div>
+                        </table>
+                        @endfor
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary mt-3">Crear nueva actividad</button>
+                            <button href="{{ route('home.index') }}" class="btn btn-secondary mt-3">Atrás</button>
+                        </div>
                 </div>
             </div>
         </form>

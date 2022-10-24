@@ -25,6 +25,5 @@ class Timetable extends Authenticatable
         'dayOfTheWeek',
         'start',
         'finish',
-        'activity_id',
     ];
 }

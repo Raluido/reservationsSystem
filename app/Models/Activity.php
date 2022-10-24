@@ -21,8 +21,6 @@ class Activity extends Authenticatable
 
     protected $table = 'activities';
 
-    protected $fillable = ['activity_id'];
-
     public function timetables() {
         return $this->hasMany(Timetable::class, 'activity_id', 'id');
     }

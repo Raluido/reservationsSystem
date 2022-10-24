@@ -68,7 +68,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         });
 
         Route::group(['prefix' => 'activity'], function () {
-            Route::get('/create', 'ActivitiesController@create')->name('activities.create');
+            Route::get('/create', 'ActivitiesController@index')->name('activities.index');
             Route::post('/create', 'ActivitiesController@store')->name('activities.store');
         });
 

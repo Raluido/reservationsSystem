@@ -6,19 +6,26 @@ use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\Timetable;
 use Illuminate\Support\Facades\Log;
+use DB;
 
 class ActivitiesController extends Controller
 {
-    public function create()
+    public function index()
     {
-        return view('activities.create');
+        $activityList = Db::Table('activities')
+            ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
+            ->select('activities.name', 'timetables.dayOfTheWeek', 'timetables.start', 'timetables.finish')
+            ->orderby('activities.name')
+            ->get();
+
+        return view('activities.index')->with('activityList', $activityList);
     }
 
     public function store(Request $request)
     {
         $activity = new Activity();
         $activity->name = $request->input('name');
-
+        $activity->save();
         $addTimetables = $request->except('name', '_token');
         for ($i = 0; $i < (count($addTimetables)) / 3; $i++) {
             if (strtotime($addTimetables['start'][$i]) > strtotime($addTimetables['finish'][$i])) {
@@ -30,7 +37,6 @@ class ActivitiesController extends Controller
                 'start' => $addTimetables['start'][$i],
                 'finish' => $addTimetables['finish'][$i],
             ]);
-            log::info($addTimetables['dayOfTheWeek'][$i]);
         }
 
         $activity->timetables()->saveMany($newTimes);
