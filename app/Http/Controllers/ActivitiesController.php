@@ -17,7 +17,8 @@ class ActivitiesController extends Controller
 
         $timetableList = Db::Table('activities')
             ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
-            ->select('activities.name', 'timetables.dayOfTheWeek', 'timetables.start', 'timetables.finish')
+            ->select('activities.name', 'timetables.dayOfTheWeek', 'timetables.start', 'timetables.finish', 'timetables.id')
+            ->orderby('activities.name')
             ->get();
 
         return view('activities.index')->with('activityList', $activityList)->with('timetableList', $timetableList);
@@ -25,10 +26,9 @@ class ActivitiesController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $addActivity = $request->except('_token');
-        log::info($addActivity);
-        
+
         for ($i = 0; $i < count($addActivity['name']); $i++) {
             $activity = new Activity();
             $activity->name = $addActivity['name'][$i];
@@ -38,23 +38,38 @@ class ActivitiesController extends Controller
 
         return redirect()->back();
     }
+
+    /**
+     * Update activity data
+     *
+     * @param Activity $activity
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Activity $activity)
+    {
+        $activity->update();
+
+        return redirect()
+            ->route('activities.index')
+            ->withSuccess(__('Actividad actualizada exitosamente'));
+    }
+
+
+    /**
+     * Delete activity data
+     *
+     * @param Activity $activity
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function destroy(Activity $activity)
+    {
+        Db::Table('activities')->where('id', $activity->id)->delete();
+
+        return redirect()
+            ->route('activities.index')
+            ->withSuccess(__('Actividad borrada exitosamente'));
+    }
 }
-
-
-
-
-
-// $addTimetables = $request->except('name', '_token');
-// for ($i = 0; $i < (count($addTimetables)) / 3; $i++) {
-//     if (strtotime($addTimetables['start'][$i]) > strtotime($addTimetables['finish'][$i])) {
-//         echo '<div>El horario de finalización debe de ser posterior al de inicio</div>';
-//         break;
-//     }
-//     $newTimes[] = new Timetable([
-//         'dayOfTheWeek' => $addTimetables['dayOfTheWeek'][$i],
-//         'start' => $addTimetables['start'][$i],
-//         'finish' => $addTimetables['finish'][$i],
-//     ]);
-// }
-
-// $activity->timetables()->saveMany($newTimes);

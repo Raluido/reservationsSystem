@@ -70,6 +70,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::group(['prefix' => 'activity'], function () {
             Route::get('/create', 'ActivitiesController@index')->name('activities.index');
             Route::post('/create', 'ActivitiesController@store')->name('activities.store');
+            Route::post('/{activity}/update', 'ActivitiesController@update')->name('activities.update');
+            Route::delete('/{activity}/delete', 'ActivitiesController@destroy')->name('activities.destroy');
+        });
+
+        Route::group(['prefix' => 'timetable'], function () {
+            Route::post('/crete', 'TimetableController@store')->name('timetables.store');
+            Route::post('/{timetable}/update', 'TimetableController@update')->name('timetables.update');
+            Route::delete('/{timetable}/delete', 'TimetableController@destroy')->name('timetables.destroy');
         });
 
         /**
