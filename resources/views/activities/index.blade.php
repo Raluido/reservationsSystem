@@ -8,17 +8,11 @@
     </div>
 
     <div class="container mt-4">
-        <div class="d-flex justify-content-end">
-            <div class="">
-                <button type="button" name="add" id="dynamic-ar1" class="btn btn-primary">Añadir nueva
-                    clase</button>
-            </div>
-        </div>
         <table class="table table-striped" id="dynamicAddRemove1">
             <thead>
                 <tr>
-                    <th scope="col" width="10%">Actividad</th>
-                    <th scope="col" width="5%">Número de plazas</th>
+                    <th scope="col" width="20%">Actividad</th>
+                    <th scope="col" width="10%">Número de plazas</th>
                     <th scope="col" width="20%">Acción</th>
                     <th scope="col" width="1%" colspan="3"></th>
                 </tr>
@@ -28,8 +22,7 @@
                 @for($i = 0; count($activityList) / 2 > $i; $i++)
                 <tr>
                     <td><input name="name" for="name" id="name" value="{{ $index->name }}" class="form-control" /></td>
-                    <td><input name="places" for="places" id="places" value="{{ $index->places }}"
-                            class="form-control" /></td>
+                    <td><input name="places" for="places" id="places" value="{{ $index->places }}" class="form-control" /></td>
                     <td><a href="" class="">Editar</a></td>
                     <td>{!! Form::open(['method' => 'DELETE','route' => ['activities.destroy',
                         $activity->id],'style'=>'display:inline']) !!}
@@ -39,15 +32,18 @@
                 </tr>
                 @endfor
                 @else
+                {!! Form::open(['method' => 'POST','route' => ['activities.store'],'style'=>'display:inline'])
+                !!}
                 <tr>
-                    <td>{!! Form::open(['method' => 'POST','route' => ['activities.store'],'style'=>'display:inline'])
-                        !!}</td>
-                    <td><input name="name[0]" for="name" id="name" class="form-control" /></td>
-                    <td><input name="places[0]" for="places" id="places" class="form-control" /></td>
-                    <td>{!! Form::submit('Store', ['class' => 'btn btn-succsess btn-sm']) !!}
-                        {!! Form::close() !!}
-                    </td>
+                    <td><input name="name[0]" for="name" id="name" placeholder="Nombre" class="form-control" /></td>
+                    <td><input name="places[0]" for="places" id="places" placeholder="Plazas" class="form-control" /></td>
+                    <td><button type="button" name="add" id="dynamic-ar1" class="btn btn-transparent">Nueva línea
+                        </button></td>
                 </tr>
+                <div class="d-flex justify-content-end">
+                    {!! Form::submit('Añadir actividad', ['class' => 'btn btn-primary my-4']) !!}
+                    {!! Form::close() !!}
+                </div>
                 @endif
             </tbody>
         </table>

@@ -14,7 +14,6 @@ class ActivitiesController extends Controller
     {
         $activityList = Db::Table('activities')
             ->get();
-            log::info($activityList);
 
         $timetableList = Db::Table('activities')
             ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
@@ -26,11 +25,16 @@ class ActivitiesController extends Controller
 
     public function store(Request $request)
     {
-        $activity = new Activity();
         
-        $activity->name = $request->input('name');
-        $activity->places = $request->input('places');
-        $activity->save();
+        $addActivity = $request->except('_token');
+        log::info($addActivity);
+        
+        for ($i = 0; $i < count($addActivity['name']); $i++) {
+            $activity = new Activity();
+            $activity->name = $addActivity['name'][$i];
+            $activity->places = $addActivity['places'][$i];
+            $activity->save();
+        }
 
         return redirect()->back();
     }
