@@ -26,7 +26,6 @@ class ActivitiesController extends Controller
 
     public function store(Request $request)
     {
-
         $addActivity = $request->except('_token');
 
         for ($i = 0; $i < count($addActivity['name']); $i++) {

@@ -75,7 +75,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         });
 
         Route::group(['prefix' => 'timetable'], function () {
-            Route::post('/crete', 'TimetableController@store')->name('timetables.store');
+            Route::post('/create', 'TimetableController@store')->name('timetables.store');
             Route::post('/{timetable}/update', 'TimetableController@update')->name('timetables.update');
             Route::delete('/{timetable}/delete', 'TimetableController@destroy')->name('timetables.destroy');
         });
