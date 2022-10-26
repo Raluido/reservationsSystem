@@ -7,6 +7,10 @@
         <p>Añadir nuevo horario para la actividad indicada.</p>
     </div>
 
+    <div class="mt-2">
+        @include('layouts.partials.messages')
+    </div>
+
     <div class="container mt-4">
         <form method="post" action="/activity/create" enctype="multipart/form-data">
             @csrf
@@ -23,10 +27,7 @@
                 <tr>
                     <td><input name="name" for="name" id="name" value="{{ $activityList[$i]->name }}" class="form-control" /></td>
                     <td><input name="places" for="places" id="places" value="{{ $activityList[$i]->places }}" class="form-control" /></td>
-                    <td>{!! Form::open(['method' => 'POST','route' => ['activities.update',
-                        $activityList[$i]->id],'style'=>'display:inline']) !!}
-                        {!! Form::submit('Editar', ['class' => 'btn btn-success btn-sm']) !!}
-                        {!! Form::close() !!}</td>
+                    <td><a href="{{ route('activities.edit', $activityList[$i]->id) }}" class="btn btn-success">Editar</a></td>
                     <td>{!! Form::open(['method' => 'DELETE','route' => ['activities.destroy',
                         $activityList[$i]->id],'style'=>'display:inline']) !!}
                         {!! Form::submit('Borrar', ['class' => 'btn btn-danger btn-sm']) !!}
@@ -66,10 +67,7 @@
                     <td><input name="dayOfTheWeek" for="dayOfTheWeek" id="dayOfTheWeek" value="{{ $timetableList[$i]->dayOfTheWeek }}" class="form-control" /></td>
                     <td><input name="start" for="start" id="start" value="{{ $timetableList[$i]->start }}" class="form-control" /></td>
                     <td><input name="finish" for="finish" id="finish" value="{{ $timetableList[$i]->finish }}" class="form-control" /></td>
-                    <td>{!! Form::open(['method' => 'POST','route' => ['timetables.update',
-                        $timetableList[$i]->id],'style'=>'display:inline']) !!}
-                        {!! Form::submit('Editar', ['class' => 'btn btn-success btn-sm']) !!}
-                        {!! Form::close() !!}</td>
+                    <td><a href="{{ route('timetables.edit', $timetableList[$i]->id) }}" class="btn btn-success">Editar</a></td>
                     <td>{!! Form::open(['method' => 'DELETE','route' => ['timetables.destroy',
                         $timetableList[$i]->id],'style'=>'display:inline']) !!}
                         {!! Form::submit('Borrar', ['class' => 'btn btn-danger btn-sm']) !!}
@@ -79,7 +77,7 @@
                 </tr>
                 @endif
                 <tr>
-                    <td><input name="name" for="name" class="form-control" placeholder="Nombre" /></td>
+                    <td><input name="name[0]" for="name" class="form-control" placeholder="Nombre" /></td>
                     <td><input name="dayOfTheWeek[0]" for="dayOfTheWeek" id="dayOfTheWeek" placeholder="Día de la semana" class="form-control" /></td>
                     <td><input name="start[0]" for="start" type="time" id="start" class="form-control" placeholder="Comienzo" /></td>
                     <td><input name="finish[0]" for="finish" type="time" id="finish" class="form-control" placeholder="Fin" /></td>

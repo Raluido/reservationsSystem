@@ -45,15 +45,33 @@ class ActivitiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function edit(Activity $activity)
+    {
+        return view('activities.edit', ['activity' => $activity]);
+    }
+
+    /**
+     * Update activity data
+     *
+     * @param Activity $activity
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function update(Activity $activity)
     {
         $activity->update();
 
-        return redirect()
-            ->route('activities.index')
-            ->withSuccess(__('Actividad actualizada exitosamente'));
-    }
+        $activityList = Db::Table('activities')
+            ->get();
 
+        $timetableList = Db::Table('activities')
+            ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
+            ->select('activities.name', 'timetables.dayOfTheWeek', 'timetables.start', 'timetables.finish', 'timetables.id')
+            ->orderby('activities.name')
+            ->get();
+
+        return view('activities.index')->with('activityList', $activityList)->with('timetableList', $timetableList);
+    }
 
     /**
      * Delete activity data
