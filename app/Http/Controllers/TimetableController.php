@@ -19,21 +19,25 @@ class TimetableController extends Controller
             $name = strtolower($addTimetable['name']);
             $name1 = preg_replace('/\s+/', '', $name);
             $activities = Db::Table('activities')->select('name', 'id')->get();
+            if (count($activities) == 0) {
+                'echo <div>No hay ninguna actividad en la base de datos.</div>';
+            }
 
-            foreach ($activities as $key => $value) {
-                $fix = strtolower($key['name']);
+            foreach ($activities as $index) {
+                $fix = strtolower($index->name);
                 $fix1 = preg_replace('/\s+/', '', $fix);
                 if ($fix1 == $name1) {
-                    $timetable->activity_id = $key['id'];
+                    for ($i = 0; $i < Count($addTimetable['dayOfTheWeek']); $i++) {
+                        $timetable->activity_id = $index->id;
+                        $timetable->dayOfTheWeek = $addTimetable['dayOfTheWeek'][$i];
+                        $timetable->start = $addTimetable['start'][$i];
+                        $timetable->finish = $addTimetable['finish'][$i];
+                        $timetable->save();
+                    }
                 } else {
                     'echo <div>Esta actividad no ha sido agregada aún.</div>';
                 }
             }
-
-            $timetable->dayOfTheWeek = $addTimetable['dayOfTheWeek'][$i];
-            $timetable->start = $addTimetable['start'][$i];
-            $timetable->finish = $addTimetable['finish'][$i];
-            $timetable->save();
         }
 
         return redirect()->back();
