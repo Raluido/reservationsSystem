@@ -24,6 +24,8 @@
                                 </li>
                                 <li><a class="dropdown-item" href="{{ route('reservations.adminReservations') }}">Reservas</a>
                                 </li>
+                                <li><a class="dropdown-item" href="{{ route('reservations.index', '1') }}">Reservar</a>
+                                </li>
                                 <li><a class="dropdown-item" href="{{ route('activities.index') }}">Crear horario</a>
                                 </li>
                             </ul>

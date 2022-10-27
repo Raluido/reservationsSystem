@@ -93,7 +93,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         });
 
         Route::group(['prefix' => 'reservations'], function () {
-            Route::get('/', 'ReservationsController@index')->name('reservations.index');
+            Route::get('/{activityId}', 'ReservationsController@index')->name('reservations.index');
         });
 
         Route::group(['prefix' => 'padelReservations'], function () {

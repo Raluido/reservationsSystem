@@ -47,6 +47,8 @@ class ActivitiesController extends Controller
      */
     public function edit(Activity $activity)
     {
+        $activity->update();
+
         return view('activities.edit', ['activity' => $activity]);
     }
 

@@ -9,205 +9,79 @@ use DB;
 
 class ReservationsController extends Controller
 {
-    public function index()
+    public function index($activityId)
     {
         $userId = auth()->user()->id;
         $today = today();
 
         $range = date('Y-m-d', strtotime(today() . ' + 15 days')) . ' 00:00:00';
-        $reservedPlaces = Db::Table('reservations')
-            ->join('timetables', 'timetables.id', '=', 'reservations.timetable_id')
-            ->join('users', 'users.id', '=', 'reservations.timetable_id')
-
-            ->select('users.name', 'timetables.name', 'timetables.dayOfTheWeek', 'timetables.start', 'timetables.finish')
-            ->whereBetween('reservations.reservationDay', [$today, $range])
-            ->get();
-
-        log::info($reservedPlaces);
 
         $checkdatesAr3 = array(null);
 
-        // for ($i = 0; $i <= 14; $i++) {
 
-        //     $dayOfWeekPlus = date('Y-m-d', strtotime($today . ' +' . $i . 'days'));
-        //     $dayOfWeek = date("N", strtotime($dayOfWeekPlus));
+        $reservedPlaces = Db::Table('activities')
+            ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
+            ->join('reservations', 'reservations.timetable_id', '=', 'timetables.id')
+            ->whereBetween('reservations.reservationDay', [$today, $range])
+            ->select('activities.name', 'reservations.user_id', 'reservations.reservationDay', 'timetables.start', 'timetables.finish')
+            ->get();
 
-        //     switch ($dayOfWeek) {
-        //         case 1:
+        if (count($reservedPlaces) != 0) {
 
-        //             $timetable = Db::Table('activities')->where('dayOfTheWeek', 1)->get();
+            for ($i = 0; $i <= 14; $i++) {
 
-        //             if ($timetable != null) {
+                $dayOfWeekPlus = date('Y-m-d', strtotime($today . ' +' . $i . 'days'));
+                $dayOfWeek = date("N", strtotime($dayOfWeekPlus));
 
-        //                 foreach ($timetable as $index) {
+                $timetablesPerDay = Db::Table('timetables')
+                    ->where('dayOfTheWeek', $dayOfWeek)
+                    ->get();
 
-        //                     $checkDay0 = $dayOfWeekPlus . ' ' . $index->time;
-        //                     $hours1 = $index->time;
-        //                     $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-        //                     $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                foreach ($timetablesPerDay as $index) {
 
-        //                     $checkedDates = [$checkDay0, $hour1R, $hour1RU];
+                    $checkDay = $dayOfWeekPlus . ' ' . $index->start;
+                    $hour = $index->start;
+                    $hourR = Db::Table('timetables')
+                        ->join('reservations', 'reservations.timetable_id', '=', 'timetables.id')
+                        ->where('timetables.dayOfTheWeek', $dayOfWeek)
+                        ->where('timetables.activity_id', $activityId)
+                        ->where('timetables.start', $hour)
+                        ->where('reservations.reservationDay', $dayOfWeekPlus)
+                        ->get()
+                        ->count();
 
-        //                     $checkdatesAr1 = $this->result($checkedDates);
+                    $hourRU = Db::Table('timetables')
+                        ->join('reservations', 'reservations.timetable_id', '=', 'timetables.id')
+                        ->where('timetables.dayOfTheWeek', $dayOfWeek)
+                        ->where('timetables.activity_id', $activityId)
+                        ->where('timetables.start', $hour)
+                        ->where('reservations.reservationDay', $dayOfWeekPlus)
+                        ->where('reservations.user_id', $userId)
+                        ->get();
 
-        //                     $checkdatesAr4 = array();
-        //                     $arr = array();
-        //                     $arr['Hora'] = $hours1;
-        //                     $arr['Estado'] = $checkdatesAr1[1];
-        //                     $arr['Información'] = $checkdatesAr1[0];
-        //                     $checkdatesAr4[] = $arr;
-        //                 }
-        //             }
+                    $checkedDates = [$checkDay, $hourR, $hourRU];
 
-        //             $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
+                    log::info($hourRU);
 
-        //             break;
-        //         case 2:
+                    $checkdatesAr1 = $this->result($checkedDates);
 
-        //             $checkDay0 = $dayOfWeekPlus . ' 09:15:00';
-        //             $hours1 = '09:15:00';
-        //             $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-        //             $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
+                    $checkdatesAr4 = array();
+                    $arr = array();
+                    $arr['Hora'] = $hour;
+                    $arr['Estado'] = $checkdatesAr1[1];
+                    $arr['Información'] = $checkdatesAr1[0];
+                    $checkdatesAr4[] = $arr;
 
-        //             $checkedDates = [$checkDay0, $hour1R, $hour1RU];
+                    $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
+                }
+            }
+        }
 
-        //             $checkdatesAr1 = $this->result($checkedDates);
+        $checkdatesAr3 = array_map(function ($array) {
+            return array((object)$array);
+        }, $checkdatesAr3);
 
-        //             $checkdatesAr4 = array();
-        //             $arr = array();
-        //             $arr['Hora'] = $hours1;
-        //             $arr['Estado'] = $checkdatesAr1[1];
-        //             $arr['Información'] = $checkdatesAr1[0];
-        //             $checkdatesAr4[] = $arr;
-
-        //             $checkDay0 = $dayOfWeekPlus . ' 18:15:00';
-        //             $hours1 = '18:15:00';
-        //             $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-        //             $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-
-        //             $checkedDates = [$checkDay0, $hour1R, $hour1RU];
-
-        //             $checkdatesAr1 = $this->result($checkedDates);
-
-        //             $arr = array();
-        //             $arr['Hora'] = $hours1;
-        //             $arr['Estado'] = $checkdatesAr1[1];
-        //             $arr['Información'] = $checkdatesAr1[0];
-        //             $checkdatesAr4[] = $arr;
-        //             $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
-
-        //             break;
-        //         case 3:
-        //             $checkDay0 = $dayOfWeekPlus . ' 08:15:00';
-        //             $hours1 = '08:15:00';
-        //             $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-        //             $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-
-        //             $checkedDates = [$checkDay0, $hour1R, $hour1RU];
-
-        //             $checkdatesAr1 = $this->result($checkedDates);
-
-        //             $checkdatesAr4 = array();
-        //             $arr = array();
-        //             $arr['Hora'] = $hours1;
-        //             $arr['Estado'] = $checkdatesAr1[1];
-        //             $arr['Información'] = $checkdatesAr1[0];
-        //             $checkdatesAr4[] = $arr;
-
-        //             $checkDay0 = $dayOfWeekPlus . ' 20:15:00';
-        //             $hours1 = '20:15:00';
-        //             $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-        //             $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-
-        //             $checkedDates = [$checkDay0, $hour1R, $hour1RU];
-
-        //             $checkdatesAr1 = $this->result($checkedDates);
-
-        //             $arr = array();
-        //             $arr['Hora'] = $hours1;
-        //             $arr['Estado'] = $checkdatesAr1[1];
-        //             $arr['Información'] = $checkdatesAr1[0];
-        //             $checkdatesAr4[] = $arr;
-        //             $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
-
-        //             break;
-        //         case 4:
-        //             $checkDay0 = $dayOfWeekPlus . ' 12:15:00';
-        //             $hours1 = '12:15:00';
-        //             $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-        //             $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-
-        //             $checkedDates = [$checkDay0, $hour1R, $hour1RU];
-
-        //             $checkdatesAr1 = $this->result($checkedDates);
-
-        //             $checkdatesAr4 = array();
-        //             $arr = array();
-        //             $arr['Hora'] = $hours1;
-        //             $arr['Estado'] = $checkdatesAr1[1];
-        //             $arr['Información'] = $checkdatesAr1[0];
-        //             $checkdatesAr4[] = $arr;
-
-        //             $checkDay0 = $dayOfWeekPlus . ' 21:15:00';
-        //             $hours1 = '21:15:00';
-        //             $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-        //             $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-
-        //             $checkedDates = [$checkDay0, $hour1R, $hour1RU];
-
-        //             $checkdatesAr1 = $this->result($checkedDates);
-
-        //             $arr = array();
-        //             $arr['Hora'] = $hours1;
-        //             $arr['Estado'] = $checkdatesAr1[1];
-        //             $arr['Información'] = $checkdatesAr1[0];
-        //             $checkdatesAr4[] = $arr;
-        //             $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
-
-        //             break;
-        //         case 5:
-
-        //             $checkDay0 = $dayOfWeekPlus . ' 13:15:00';
-        //             $hours1 = '13:15:00';
-        //             $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-        //             $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-
-        //             $checkedDates = [$checkDay0, $hour1R, $hour1RU];
-
-        //             $checkdatesAr1 = $this->result($checkedDates);
-
-        //             $checkdatesAr4 = array();
-        //             $arr = array();
-        //             $arr['Hora'] = $hours1;
-        //             $arr['Estado'] = $checkdatesAr1[1];
-        //             $arr['Información'] = $checkdatesAr1[0];
-        //             $checkdatesAr4[] = $arr;
-
-        //             $checkDay0 = $dayOfWeekPlus . ' 19:15:00';
-        //             $hours1 = '19:15:00';
-        //             $hour1R = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->get()->count();
-        //             $hour1RU = Db::Table('yoga_reservations')->where('reservation_date', $checkDay0)->where('user_id', auth()->user()->id)->get()->count();
-
-        //             $checkedDates = [$checkDay0, $hour1R, $hour1RU];
-
-        //             $checkdatesAr1 = $this->result($checkedDates);
-
-        //             $arr = array();
-        //             $arr['Hora'] = $hours1;
-        //             $arr['Estado'] = $checkdatesAr1[1];
-        //             $arr['Información'] = $checkdatesAr1[0];
-        //             $checkdatesAr4[] = $arr;
-        //             $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
-
-        //             break;
-        //     }
-        // }
-
-        // $checkdatesAr3 = array_map(function ($array) {
-        //     return array((object)$array);
-        // }, $checkdatesAr3);
-
-        // return view('reservations.indexYoga', compact('checkdatesAr3'));
+        return view('reservations.indexYoga', compact('checkdatesAr3'));
     }
 
     public function result($checkedDates)
