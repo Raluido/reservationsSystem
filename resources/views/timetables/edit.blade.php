@@ -22,6 +22,7 @@
                     <th scope="col" width="20%">Día de la semana</th>
                     <th scope="col" width="10%">Comienzo</th>
                     <th scope="col" width="20%">Final</th>
+                    <th scope="col" width="20%">Acción</th>
                     <th scope="col" width="1%" colspan="3"></th>
                 </tr>
                 <tr>
@@ -29,9 +30,10 @@
                     <td><input name="dayOfTheWeek" for="dayOfTheWeek" id="dayOfTheWeek" value="{{ $timetable->dayOfTheWeek }}" class="form-control" /></td>
                     <td><input name="start" for="start" id="start" value="{{ $timetable->start }}" class="form-control" /></td>
                     <td><input name="finish" for="finish" id="finish" value="{{ $timetable->finish }}" class="form-control" /></td>
+                    <td><button type="submit" class="btn btn-secondary btn-sm">Editar</button></td>
                 </tr>
             </table>
-            <button type="submit" class="btn btn-secondary">Editar</button>
         </form>
     </div>
-    @endsection
+</div>
+@endsection

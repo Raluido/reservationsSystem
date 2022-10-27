@@ -92,6 +92,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/updatePassword', 'UserController@updatePassword')->name('user.updatePassword');
         });
 
+        Route::group(['prefix' => 'reservations'], function () {
+            Route::get('/', 'ReservationsController@index')->name('reservations.index');
+        });
+
         Route::group(['prefix' => 'padelReservations'], function () {
             Route::get('/', 'PadelReservationsController@index')->name('reservations.indexPadel');
             Route::post('/', 'PadelReservationsController@creatematch')->name('reservations.createPadelMatch');
@@ -105,9 +109,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         });
 
         Route::group(['prefix' => 'userReservations'], function () {
-            Route::get('/', 'ReservationsController@userReservations')->name('reservations.userReservations');
-            Route::get('/deleteYoga/{bookdate}', 'ReservationsController@deleteYoga')->name('reservations.deleteYoga');
-            Route::get('/deletePadel/{bookdate}', 'ReservationsController@deletePadel')->name('reservations.deletePadel');
+            Route::get('/', 'UserReservationsController@userReservations')->name('reservations.userReservations');
+            Route::get('/deleteYoga/{bookdate}', 'UserReservationsController@deleteYoga')->name('reservations.deleteYoga');
+            Route::get('/deletePadel/{bookdate}', 'UserReservationsController@deletePadel')->name('reservations.deletePadel');
         });
 
 
