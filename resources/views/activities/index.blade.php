@@ -50,12 +50,11 @@
     <div class="container mt-4">
         <table class="table table-striped">
             <tr>
-                <th scope="col" width="15%">Nombre</th>
-                <th scope="col" width="10%">Día de la semana</th>
-                <th scope="col" width="10%">Comienzo</th>
-                <th scope="col" width="10%">Final</th>
-                <th scope="col" width="20%">Acción</th>
-                <th scope="col" width="1%" colspan="3"></th>
+                <th scope="col" width="20%">Nombre</th>
+                <th scope="col" width="15%">Día de la semana</th>
+                <th scope="col" width="15%">Comienzo</th>
+                <th scope="col" width="15%">Final</th>
+                <th scope="col" width="15%">Acción</th>
             </tr>
             @if(count($timetableList) != 0)
             @for($i = 0; count($timetableList) > $i; $i++)
@@ -77,8 +76,21 @@
         {!! Form::open(['method' => 'STORE','route' => ['timetables.store'],'style'=>'display:inline']) !!}
         <table class="table table-striped" id="dynamicAddRemove">
             <tr>
-                <td><input name="name[0]" for="name" class="form-control" placeholder="Nombre" /></td>
-                <td><input name="dayOfTheWeek[0]" for="dayOfTheWeek" id="dayOfTheWeek" placeholder="Día de la semana" class="form-control" /></td>
+                <td><select name="name[0]" id="name" class="form-control" placeholder="Nombre">
+                        @foreach($activityList as $index)
+                        <option value="{{ $index->name }}">{{ $index->name }}</option>
+                        @endforeach
+                    </select></td>
+                <input type="hidden" id="activitiesList" value="{{ $activityList }}" />
+                <td><select name="dayOfTheWeek[0]" id="dayOfTheWeek" class="form-control" placeholder="Día de la semana">
+                        <option value="1">Lunes</option>
+                        <option value="2">Martes</option>
+                        <option value="3">Miércoles</option>
+                        <option value="4">Jueves</option>
+                        <option value="5">Viernes</option>
+                        <option value="6">Sábado</option>
+                        <option value="7">Domingo</option>
+                    </select></td>
                 <td><input name="start[0]" for="start" type="time" id="start" class="form-control" placeholder="Comienzo" /></td>
                 <td><input name="finish[0]" for="finish" type="time" id="finish" class="form-control" placeholder="Fin" /></td>
                 <td><button type="button" name="add" id="dynamic-ar" class="btn btn-transparent">Nueva línea
@@ -94,4 +106,5 @@
     @section('js')
     <script src="{{ asset('js/dynamicAddRemove.js') }}" defer></script>
     <script src="{{ asset('js/dynamicAddRemove1.js') }}" defer></script>
+    <script src="{{ asset('js/activityList.js') }}" defer></script>
     @endsection
