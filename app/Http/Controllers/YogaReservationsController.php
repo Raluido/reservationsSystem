@@ -201,6 +201,7 @@ class YogaReservationsController extends Controller
         $checkdatesAr3 = array_map(function ($array) {
             return array((object)$array);
         }, $checkdatesAr3);
+        
 
         return view('reservations.indexYoga', compact('checkdatesAr3'));
     }

@@ -81,7 +81,7 @@
                         <option value="{{ $index->name }}">{{ $index->name }}</option>
                         @endforeach
                     </select></td>
-                <input type="hidden" id="activitiesList" value="{{ $activityList }}" />
+                <input type="hidden" id="activitiesList" value="{{ json_encode($activityListFix) }}" />
                 <td><select name="dayOfTheWeek[0]" id="dayOfTheWeek" class="form-control" placeholder="Día de la semana">
                         <option value="1">Lunes</option>
                         <option value="2">Martes</option>
@@ -106,5 +106,5 @@
     @section('js')
     <script src="{{ asset('js/dynamicAddRemove.js') }}" defer></script>
     <script src="{{ asset('js/dynamicAddRemove1.js') }}" defer></script>
-    <script src="{{ asset('js/activityList.js') }}" defer></script>
+    <!-- <script src="{{ asset('js/activityList.js') }}" defer></script> -->
     @endsection
