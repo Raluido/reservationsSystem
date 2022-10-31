@@ -14,10 +14,10 @@
     <div class="container mt-4">
         <table class="table table-striped">
             <tr>
-                <th scope="col" width="20%">Actividad</th>
-                <th scope="col" width="10%">Número de plazas</th>
-                <th scope="col" width="20%">Acción</th>
-                <th scope="col" width="1%" colspan="3"></th>
+                <th scope="col" width="50%">Actividad</th>
+                <th scope="col" width="30%">Número de plazas</th>
+                <th scope="col" width="10%">Acción</th>
+                <th scope="col" width="1%" colspan="2"></th>
             </tr>
             @if(count($activityList) != 0)
             @for($i = 0; count($activityList) > $i; $i++)
@@ -51,10 +51,11 @@
         <table class="table table-striped">
             <tr>
                 <th scope="col" width="20%">Nombre</th>
-                <th scope="col" width="15%">Día de la semana</th>
-                <th scope="col" width="15%">Comienzo</th>
-                <th scope="col" width="15%">Final</th>
+                <th scope="col" width="25%">Día de la semana</th>
+                <th scope="col" width="20%">Comienzo</th>
+                <th scope="col" width="20%">Final</th>
                 <th scope="col" width="15%">Acción</th>
+                <th scope="col" width="1%" colspan="3"></th>
             </tr>
             @if(count($timetableList) != 0)
             @for($i = 0; count($timetableList) > $i; $i++)

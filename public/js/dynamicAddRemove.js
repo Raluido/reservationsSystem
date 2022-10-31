@@ -1,4 +1,4 @@
-var i = 0;
+var i = 1;
 $("#dynamic-ar").click(function () {
     ++i;
     $("#dynamicAddRemove").append('<tr><td><select name="name[' + i +
@@ -7,10 +7,14 @@ $("#dynamic-ar").click(function () {
         ']" placeholder="Comienzo" class="form-control" /></td><td><input type="time" name="finish[' + i +
         ']" placeholder="Fin" class="form-control" /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
     );
+
+    
     var activityList = document.getElementById("activitiesList").value;
     var activityListFix = JSON.parse(activityList);
-
-    var select = $("select#fromActivity");
+    
+    var select = $('select#fromActivity');
+    
+    $(select).children("option").remove();
 
     for (let i = 0; i < activityListFix.length; i++) {
 
