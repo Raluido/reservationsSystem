@@ -15,22 +15,13 @@ class ActivitiesController extends Controller
         $activityList = Db::Table('activities')
             ->get();
 
-
-        $activityListFix = array();
-
-        foreach ($activityList as $index) {
-            $activityListFix[] = ((array)(object)$index);
-        }
-
-        log::info($activityListFix);
-
         $timetableList = Db::Table('activities')
             ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
             ->select('activities.name', 'timetables.dayOfTheWeek', 'timetables.start', 'timetables.finish', 'timetables.id')
-            ->orderby('activities.name')
+            ->orderBy('timetables.dayOfTheWeek', 'ASC')
             ->get();
 
-        return view('activities.index', compact('activityList', 'activityListFix', 'timetableList'));
+        return view('activities.index', compact('activityList', 'timetableList'));
     }
 
     public function store(Request $request)

@@ -43,8 +43,10 @@
                     </button></td>
             </tr>
         </table>
-        {!! Form::submit('Añadir actividad', ['class' => 'btn btn-primary']) !!}
-        {!! Form::close() !!}
+        <div class="d-flex justify-content-end">
+            {!! Form::submit('Añadir actividad', ['class' => 'btn btn-primary']) !!}
+            {!! Form::close() !!}
+        </div>
     </div>
 
     <div class="container mt-4">
@@ -82,7 +84,7 @@
                         <option value="{{ $index->name }}">{{ $index->name }}</option>
                         @endforeach
                     </select></td>
-                <input type="hidden" id="activitiesList" value="{{ json_encode($activityListFix) }}" />
+                <input type="hidden" id="activitiesList" value="{{ json_encode($activityList) }}" />
                 <td><select name="dayOfTheWeek[0]" id="dayOfTheWeek" class="form-control" placeholder="Día de la semana">
                         <option value="1">Lunes</option>
                         <option value="2">Martes</option>
@@ -100,12 +102,13 @@
             <div class="d-flex justify-content-end">
             </div>
         </table>
-        {!! Form::submit('Añadir horario', ['class' => 'btn btn-primary']) !!}
-        {!! Form::close() !!}
+        <div class="d-flex justify-content-end">
+            {!! Form::submit('Añadir horario', ['class' => 'btn btn-primary']) !!}
+            {!! Form::close() !!}
+        </div>
     </div>
     @endsection
     @section('js')
     <script src="{{ asset('js/dynamicAddRemove.js') }}" defer></script>
     <script src="{{ asset('js/dynamicAddRemove1.js') }}" defer></script>
-    <!-- <script src="{{ asset('js/activityList.js') }}" defer></script> -->
     @endsection
