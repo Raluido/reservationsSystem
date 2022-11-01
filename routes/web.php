@@ -94,7 +94,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::group(['prefix' => 'reservations'], function () {
             Route::get('/', 'ReservationsController@index')->name('reservations.index');
-            Route::post('/indexId', 'ReservationsController@indexId')->name('reservations.indexId');
+            Route::post('/', 'ReservationsController@showReservations')->name('reservations.showReservations');
+            Route::post('/reserve/{idReservation}', 'ReservationsController@reserve')->name('reservations.reserve');
+            Route::get('/cancel/{idReservation}', 'YogaReservationsController@cancel')->name('reservations.cancel');
         });
 
         Route::group(['prefix' => 'padelReservations'], function () {
@@ -102,12 +104,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/', 'PadelReservationsController@creatematch')->name('reservations.createPadelMatch');
             Route::get('/deletematch/{matchdate}', 'PadelReservationsController@deletematch')->name('reservations.deletePadelMatch');
         });
-
-        // Route::group(['prefix' => 'yogaReservations'], function () {
-        //     Route::get('/', 'YogaReservationsController@index')->name('reservations.indexYoga');
-        //     Route::post('/', 'YogaReservationsController@bookclasses')->name('reservations.bookYogaClasses');
-        //     Route::get('/cancelclasses/{bookdate}', 'YogaReservationsController@cancelclasses')->name('reservations.cancelYogaClasses');
-        // });
 
         Route::group(['prefix' => 'userReservations'], function () {
             Route::get('/', 'UserReservationsController@userReservations')->name('reservations.userReservations');
