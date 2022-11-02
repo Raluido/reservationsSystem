@@ -64,7 +64,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::group(['prefix' => 'admin'], function () {
             Route::get('/', 'AdminReservationsController@usersReservations')->name('reservations.adminReservations');
             Route::delete('/{idPadelReservation}', 'AdminReservationsController@destroyPadel')->name('reservations.destroyPadel');
-            Route::delete('/{idYogaReservation}', 'AdminReservationsController@destroyYoga')->name('reservations.destroyYoga');
+            Route::delete('/{reservationId}', 'AdminReservationsController@destroy')->name('reservations.destroy');
         });
 
         Route::group(['prefix' => 'activity'], function () {

@@ -15,15 +15,17 @@ class AdminReservationsController extends Controller
             ->select('padel_reservations.*', 'users.name')
             ->whereDate('reservation_date', '>=', today())
             ->get();
-        $yogaReservations = Db::Table('yoga_reservations')
-            ->join('users', 'yoga_reservations.user_id', '=', 'users.id')
-            ->select('yoga_reservations.*', 'users.name')
-            ->whereDate('reservation_date', '>=', today())
+        $reservations = Db::Table('reservations')
+            ->join('users', 'reservations.user_id', '=', 'users.id')
+            ->join('timetables', 'reservations.timetable_id', '=', 'timetables.id')
+            ->join('activities', 'timetables.activity_id', '=', 'activities.id')
+            ->select('users.name AS user', 'activities.name', 'timetables.start', 'reservations.id', 'reservations.reservationDay')
+            ->whereDate('reservations.reservationDay', '>=', today())
             ->get();
 
         return view('reservations.adminReservations')
             ->with('padelReservations', $padelReservations)
-            ->with('yogaReservations', $yogaReservations);
+            ->with('reservations', $reservations);
     }
 
     public function destroyYoga($idYogaReservation)
