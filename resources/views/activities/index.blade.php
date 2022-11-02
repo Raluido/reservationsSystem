@@ -81,7 +81,7 @@
             <tr>
                 <td><select name="name[0]" id="name" class="form-control" placeholder="Nombre">
                         @foreach($activityList as $index)
-                        <option value="{{ $index->name }}">{{ $index->name }}</option>
+                        <option value="{{ $index->id }}">{{ $index->name }}</option>
                         @endforeach
                     </select></td>
                 <input type="hidden" id="activitiesList" value="{{ json_encode($activityList) }}" />

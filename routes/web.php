@@ -95,8 +95,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::group(['prefix' => 'reservations'], function () {
             Route::get('/', 'ReservationsController@index')->name('reservations.index');
             Route::post('/', 'ReservationsController@showReservations')->name('reservations.showReservations');
-            Route::post('/reserve/{idReservation}', 'ReservationsController@reserve')->name('reservations.reserve');
-            Route::get('/cancel/{idReservation}', 'YogaReservationsController@cancel')->name('reservations.cancel');
+            Route::post('/reserve', 'ReservationsController@reserve')->name('reservations.reserve');
+            Route::get('/cancel/{reservationId}', 'ReservationsController@cancel')->name('reservations.cancel');
         });
 
         Route::group(['prefix' => 'padelReservations'], function () {
