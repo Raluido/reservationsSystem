@@ -15,7 +15,6 @@
         <form method="post" action="{{ route('timetables.update', $timetable->id) }}" enctype="multipart/form-data">
             @method('patch')
             @csrf
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
             <table class="table table-striped">
                 <tr>
                     <th scope="col" width="20%">Nombre</th>
@@ -26,8 +25,20 @@
                     <th scope="col" width="1%" colspan="3"></th>
                 </tr>
                 <tr>
-                    <td><input name="name" for="name" class="form-control" value="{{ $activity }}" /></td>
-                    <td><input name="dayOfTheWeek" for="dayOfTheWeek" id="dayOfTheWeek" value="{{ $timetable->dayOfTheWeek }}" class="form-control" /></td>
+                    <td><select name="name" id="name" class="form-control" placeholder="Nombre">
+                            @foreach($activityList as $index)
+                            <option value="{{ $index->id }}">{{ $index->name }}</option>
+                            @endforeach
+                        </select></td>
+                    <td><select name="dayOfTheWeek" id="dayOfTheWeek" class="form-control" placeholder="Día de la semana">
+                            <option value="1">Lunes</option>
+                            <option value="2">Martes</option>
+                            <option value="3">Miércoles</option>
+                            <option value="4">Jueves</option>
+                            <option value="5">Viernes</option>
+                            <option value="6">Sábado</option>
+                            <option value="7">Domingo</option>
+                        </select></td>
                     <td><input name="start" for="start" id="start" value="{{ $timetable->start }}" class="form-control" /></td>
                     <td><input name="finish" for="finish" id="finish" value="{{ $timetable->finish }}" class="form-control" /></td>
                     <td><button type="submit" class="btn btn-secondary btn-sm">Editar</button></td>

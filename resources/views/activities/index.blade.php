@@ -37,8 +37,8 @@
         {!! Form::open(['method' => 'STORE','route' => ['activities.store'],'style'=>'display:inline']) !!}
         <table class="table table-striped" id="dynamicAddRemove1">
             <tr>
-                <td><input name="name[0]" for="name" id="name" placeholder="Nombre" class="form-control" /></td>
-                <td><input name="places[0]" for="places" id="places" placeholder="Plazas" class="form-control" /></td>
+                <td><input name="name[0]" for="name" id="name" placeholder="Nombre" class="form-control" required /></td>
+                <td><input name="places[0]" for="places" id="places" placeholder="Plazas" class="form-control" required /></td>
                 <td><button type="button" name="add" id="dynamic-ar1" class="btn btn-transparent">Nueva línea
                     </button></td>
             </tr>
@@ -94,8 +94,8 @@
                         <option value="6">Sábado</option>
                         <option value="7">Domingo</option>
                     </select></td>
-                <td><input name="start[0]" for="start" type="time" id="start" class="form-control" placeholder="Comienzo" /></td>
-                <td><input name="finish[0]" for="finish" type="time" id="finish" class="form-control" placeholder="Fin" /></td>
+                <td><input name="start[0]" for="start" type="time" id="start" class="form-control" placeholder="Comienzo" required /></td>
+                <td><input name="finish[0]" for="finish" type="time" id="finish" class="form-control" placeholder="Fin" required /></td>
                 <td><button type="button" name="add" id="dynamic-ar" class="btn btn-transparent">Nueva línea
                     </button></td>
             </tr>

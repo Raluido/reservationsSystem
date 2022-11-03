@@ -23,7 +23,6 @@
                 <form method="post" action="{{ route('activities.update', $activity->id) }}" enctype="multipart/form-data">
                     @method('patch')
                     @csrf
-                    <input name="_token" type="hidden" value="{{ csrf_token() }}">
                     <td><input name="name" for="name" id="name" value="{{ $activity->name }}" class="form-control" /></td>
                     <td><input name="places" for="places" id="places" value="{{ $activity->places }}" class="form-control" /></td>
                     <td><button type="submit" class="btn btn-secondary btn-sm">Editar</button></td>

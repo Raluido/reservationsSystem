@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\Timetable;
+use App\Http\Requests\StoreActivityRequest;
+use App\Http\Requests\UpdateActivityRequest;
 use Illuminate\Support\Facades\Log;
 use DB;
 
@@ -24,7 +26,13 @@ class ActivitiesController extends Controller
         return view('activities.index', compact('activityList', 'timetableList'));
     }
 
-    public function store(Request $request)
+    /**
+     * Store a new activity.
+     *
+     * @param  \App\Http\Requests\StoreActivityRequest $request
+     * @return Illuminate\Http\Response
+     */
+    public function store(StoreActivityRequest $request)
     {
         $addActivity = $request->except('_token');
 
@@ -47,8 +55,6 @@ class ActivitiesController extends Controller
      */
     public function edit(Activity $activity)
     {
-        $activity->update();
-
         return view('activities.edit', ['activity' => $activity]);
     }
 
@@ -56,12 +62,16 @@ class ActivitiesController extends Controller
      * Update activity data
      *
      * @param Activity $activity
-     *
+     * @param  \App\Http\Requests\UpdateActivityRequest $request
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function update(Activity $activity)
+    public function update(Activity $activity, UpdateActivityRequest $request)
     {
-        $activity->update();
+        $activityUpdate = Activity::find($activity->id);
+        $activityUpdate->name = $request->input('name');
+        $activityUpdate->places = $request->input('places');
+        $activityUpdate->update();
 
         $activityList = Db::Table('activities')
             ->get();

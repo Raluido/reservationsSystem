@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Timetable;
-use DB;
+use App\Http\Requests\StoreTimetableRequest;
+use App\Http\Requests\UpdateTimetableRequest;
 use Illuminate\Support\Facades\Log;
+use DB;
 
 class TimetableController extends Controller
 {
 
-    public function store(Request $request)
+    /**
+     * Store a timetable.
+     *
+     * @param  \App\Http\Requests\StoreTimetableRequest  $request
+     * @return Illuminate\Http\Response
+     */
+    public function store(StoreTimetableRequest $request)
     {
         $addTimetable = $request->except('_token');
 
@@ -44,19 +52,28 @@ class TimetableController extends Controller
             ->where('timetables.activity_id', '=', $timetable->activity_id)
             ->value('activities.name');
 
-        return view('timetables.edit', ['timetable' => $timetable, 'activity' => $activity]);
+        $activityList = Db::Table('activities')
+            ->get();
+
+        return view('timetables.edit', compact('timetable', 'activity', 'activityList'));
     }
 
     /**
      * Update timetable data
      * 
      * @param Timetable $timetable
+     * @param  \App\Http\Requests\UpdateimetableRequest  $request
      * 
      * @return \Illuminate\Http\Response
      */
-    public function update(Timetable $timetable)
+    public function update(Timetable $timetable, UpdateTimetableRequest $request)
     {
-        $timetable->update();
+        $timetableAdd = Timetable::find($timetable->id);
+        $timetableAdd->activity_id = $request->input('name');
+        $timetableAdd->dayOfTheWeek = $request->input('dayOfTheWeek');
+        $timetableAdd->start = $request->input('start');
+        $timetableAdd->finish = $request->input('finish');
+        $timetableAdd->update();
 
         $activityList = Db::Table('activities')
             ->get();
