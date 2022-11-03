@@ -16,6 +16,7 @@ class TimetableController extends Controller
      * Store a timetable.
      *
      * @param  \App\Http\Requests\StoreTimetableRequest  $request
+     * 
      * @return Illuminate\Http\Response
      */
     public function store(StoreTimetableRequest $request)
@@ -34,7 +35,8 @@ class TimetableController extends Controller
         }
 
         return redirect()
-            ->route('activities.index');
+            ->back()
+            ->withSuccess(__('Horario creado correctamente'));
     }
 
     /**
@@ -48,20 +50,34 @@ class TimetableController extends Controller
     {
         $activity = Db::Table('activities')
             ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
-            ->select('activities.name', 'timetables.activity_id')
+            ->select('timetables.id', 'timetables.dayOfTheWeek')
             ->where('timetables.activity_id', '=', $timetable->activity_id)
-            ->value('activities.name');
+            ->get();
 
         $activityList = Db::Table('activities')
             ->get();
 
-        return view('timetables.edit', compact('timetable', 'activity', 'activityList'));
+        $timetableList = Db::Table('timetables')
+            ->get();
+
+        $dayOfTheWeek = array(
+            '1' => 'Lunes', '2' => 'Martes', '3' => 'Miércoles', '4' => 'Jueves',
+            '5' => 'Viernes', '6' => 'Sábados', '7' => 'Domingos'
+        );
+
+        return view('timetables.edit')
+            ->with('timetable', $timetable)
+            ->with('activity', $activity)
+            ->with('activityList', $activityList)
+            ->with('timetableList', $timetableList)
+            ->with('dayOfTheWeek', $dayOfTheWeek);
     }
 
     /**
      * Update timetable data
      * 
      * @param Timetable $timetable
+     * 
      * @param  \App\Http\Requests\UpdateimetableRequest  $request
      * 
      * @return \Illuminate\Http\Response
@@ -84,7 +100,11 @@ class TimetableController extends Controller
             ->orderby('activities.name')
             ->get();
 
-        return view('activities.index')->with('activityList', $activityList)->with('timetableList', $timetableList);
+        return redirect()
+            ->route('activities.index')
+            ->with('activityList', $activityList)
+            ->with('timetableList', $timetableList)
+            ->withSuccess(__('Horario modificado correctamente'));
     }
 
     /**

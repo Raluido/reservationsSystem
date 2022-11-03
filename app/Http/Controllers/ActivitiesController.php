@@ -30,6 +30,7 @@ class ActivitiesController extends Controller
      * Store a new activity.
      *
      * @param  \App\Http\Requests\StoreActivityRequest $request
+     * 
      * @return Illuminate\Http\Response
      */
     public function store(StoreActivityRequest $request)
@@ -43,7 +44,9 @@ class ActivitiesController extends Controller
             $activity->save();
         }
 
-        return redirect()->back();
+        return redirect()
+            ->back()
+            ->withSuccess(__('Actividad creada correctamente'));
     }
 
     /**
@@ -55,7 +58,7 @@ class ActivitiesController extends Controller
      */
     public function edit(Activity $activity)
     {
-        return view('activities.edit', ['activity' => $activity]);
+        return view('activities.edit', compact('activity'));
     }
 
     /**
@@ -82,7 +85,11 @@ class ActivitiesController extends Controller
             ->orderby('activities.name')
             ->get();
 
-        return view('activities.index')->with('activityList', $activityList)->with('timetableList', $timetableList);
+        return redirect()
+            ->route('activities.index')
+            ->with('activityList', $activityList)
+            ->with('timetableList', $timetableList)
+            ->withSuccess(__('Actividad modificada exitosamente'));;
     }
 
     /**

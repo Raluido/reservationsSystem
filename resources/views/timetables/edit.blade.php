@@ -27,17 +27,13 @@
                 <tr>
                     <td><select name="name" id="name" class="form-control" placeholder="Nombre">
                             @foreach($activityList as $index)
-                            <option value="{{ $index->id }}">{{ $index->name }}</option>
+                            <option value="{{ $index->id }}" @if($index->id == $timetable->activity_id) selected="selected" @endif>{{ $index->name }}</option>
                             @endforeach
                         </select></td>
                     <td><select name="dayOfTheWeek" id="dayOfTheWeek" class="form-control" placeholder="Día de la semana">
-                            <option value="1">Lunes</option>
-                            <option value="2">Martes</option>
-                            <option value="3">Miércoles</option>
-                            <option value="4">Jueves</option>
-                            <option value="5">Viernes</option>
-                            <option value="6">Sábado</option>
-                            <option value="7">Domingo</option>
+                            @foreach($dayOfTheWeek as $key => $value)
+                            <option value="{{ $key }}" @if($value == $activity->dayOfTheWeek) selected="selected" @endif>{{ $index->dayOfTheWeek }}</option>
+                            @endforeach
                         </select></td>
                     <td><input name="start" for="start" id="start" value="{{ $timetable->start }}" class="form-control" /></td>
                     <td><input name="finish" for="finish" id="finish" value="{{ $timetable->finish }}" class="form-control" /></td>
