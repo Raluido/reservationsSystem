@@ -63,7 +63,29 @@
             @for($i = 0; count($timetableList) > $i; $i++)
             <tr>
                 <td>{{ $timetableList[$i]->name }}</td>
-                <td>{{ $timetableList[$i]->dayOfTheWeek }}</td>
+                @switch($timetableList[$i]->dayOfTheWeek)
+                @case(1)
+                <td>Lunes</td>
+                @break
+                @case(2)
+                <td>Mastes</td>
+                @break
+                @case(3)
+                <td>Miércoles</td>
+                @break
+                @case(4)
+                <td>Jueves</td>
+                @break
+                @case(5)
+                <td>Viernes</td>
+                @break
+                @case(6)
+                <td>Sábado</td>
+                @break
+                @case(7)
+                <td>Domingo</td>
+                @break
+                @endswitch
                 <td>{{ $timetableList[$i]->start }}</td>
                 <td>{{ $timetableList[$i]->finish }}</td>
                 <td><a href="{{ route('timetables.edit', $timetableList[$i]->id) }}" class="btn btn-success">Editar</a></td>

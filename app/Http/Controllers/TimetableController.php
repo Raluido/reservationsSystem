@@ -52,6 +52,7 @@ class TimetableController extends Controller
             ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
             ->select('timetables.id', 'timetables.dayOfTheWeek')
             ->where('timetables.activity_id', '=', $timetable->activity_id)
+            ->where('timetables.id', '=', $timetable->id)
             ->get();
 
         $activityList = Db::Table('activities')
@@ -61,9 +62,15 @@ class TimetableController extends Controller
             ->get();
 
         $dayOfTheWeek = array(
-            '1' => 'Lunes', '2' => 'Martes', '3' => 'Miércoles', '4' => 'Jueves',
-            '5' => 'Viernes', '6' => 'Sábados', '7' => 'Domingos'
+            (object)['id' => '1', 'day' => 'Lunes'],
+            (object)['id' => '2', 'day' => 'Martes'],
+            (object)['id' => '3', 'day' => 'Miércoles'],
+            (object)['id' => '4', 'day' => 'Jueves'],
+            (object)['id' => '5', 'day' => 'Viernes'],
+            (object)['id' => '6', 'day' => 'Sábados'],
+            (object)['id' => '7', 'day' => 'Domingos']
         );
+
 
         return view('timetables.edit')
             ->with('timetable', $timetable)
