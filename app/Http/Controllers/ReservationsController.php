@@ -178,10 +178,10 @@ class ReservationsController extends Controller
             ->value('places');
 
         if ($checkedDates[2] == 1) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Ya has reservado para ésta hora, quieres cancelar? " . "</p>" . "<div class='d-flex justify-content-center'><div><button class='ms-3'><a class='text-dark text-decoration-none' href=" . url('/reservations/cancel/' . $reservationId) . ">Cancelar</a></button></div></div></div>";
+            $checkdatesAr = "<div class='border py-3 mt-3 ps-3 pe-3'><p>Ya has reservado para ésta hora, quieres cancelar? " . "</p>" . "<div class='d-flex justify-content-center'><div><button class='ms-3'><a class='text-dark text-decoration-none' href=" . url('/reservations/cancel/' . $reservationId) . ">Cancelar</a></button></div></div></div>";
             $state = "Reservado";
         } else if ($checkedDates[1] == 0) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Hay plazas ésta hora, quieres reservar?" . "</p>" . "<form method='POST' action='/reservations/reserve' enctype='multipart/form-data' style='margin-bottom:0px'>
+            $checkdatesAr = "<div class='border py-3 mt-3 ps-3 pe-3'><p>Hay plazas ésta hora, quieres reservar?" . "</p>" . "<form method='POST' action='/reservations/reserve' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
             <input type='hidden' name='reservationDay' value='$checkedDates[4]'>
             <input type='hidden' name='timetableId' value='$checkedDates[5]'>
@@ -189,7 +189,7 @@ class ReservationsController extends Controller
             </form></div>";
             $state = "Hay plazas";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 9 && $checkedDates[2] == 0) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Quedan " . ($places - $checkedDates[1]) . " plazas, quieres reservar?"  . "</p>" . "<form method='POST' action='/reservations/reserve' enctype='multipart/form-data' style='margin-bottom:0px'>
+            $checkdatesAr = "<div class='border py-3 mt-3 ps-3 pe-3'><p>Quedan " . ($places - $checkedDates[1]) . " plazas, quieres reservar?"  . "</p>" . "<form method='POST' action='/reservations/reserve' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
             <input type='hidden' name='reservationDay' value='$checkedDates[4]'>
             <input type='hidden' name='timetableId' value='$checkedDates[5]'>
@@ -197,7 +197,7 @@ class ReservationsController extends Controller
             </form></div>";
             $state = "Hay plazas";
         } else if ($checkedDates[1] == $places) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Todas las plazas están ocupadas, losiento</p></div>";
+            $checkdatesAr = "<div class='border py-3 mt-3 ps-3 pe-3'><p>Todas las plazas están ocupadas, losiento</p></div>";
             $state = "Sin plazas";
         }
 

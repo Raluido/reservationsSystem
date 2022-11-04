@@ -43,9 +43,11 @@
                     </button></td>
             </tr>
         </table>
-        <div class="d-flex justify-content-end">
-            {!! Form::submit('Añadir actividad', ['class' => 'btn btn-primary']) !!}
-            {!! Form::close() !!}
+        <div class="">
+            <div class="d-flex justify-content-end mb-5">
+                {!! Form::submit('Añadir actividad', ['class' => 'btn btn-primary']) !!}
+                {!! Form::close() !!}
+            </div>
         </div>
     </div>
 
@@ -68,7 +70,7 @@
                 <td>Lunes</td>
                 @break
                 @case(2)
-                <td>Mastes</td>
+                <td>Martes</td>
                 @break
                 @case(3)
                 <td>Miércoles</td>
@@ -124,9 +126,14 @@
             <div class="d-flex justify-content-end">
             </div>
         </table>
-        <div class="d-flex justify-content-end">
-            {!! Form::submit('Añadir horario', ['class' => 'btn btn-primary']) !!}
-            {!! Form::close() !!}
+        <div class="d-flex justify-content-between mb-5">
+            <div class="">
+                <a class="btn btn-secondary" href="/">Volver</a>
+            </div>
+            <div class="d-flex justify-content-end">
+                {!! Form::submit('Añadir horario', ['class' => 'btn btn-primary']) !!}
+                {!! Form::close() !!}
+            </div>
         </div>
     </div>
     @endsection

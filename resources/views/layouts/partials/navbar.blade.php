@@ -41,10 +41,8 @@
                                 <li><a class="dropdown-item" href="{{ route('reservations.indexPadel') }}">Reservar
                                         partido de
                                         Padel</a></li>
-                                <li><a class="dropdown-item" href="{{ route('reservations.indexYoga') }}">Reservar
-                                        clase
-                                        de
-                                        yoga</a></li>
+                                <li><a class="dropdown-item" href="{{ route('reservations.index') }}">Reservar resto actividades</a>
+                                </li>
                                 <li><a class="dropdown-item" href="{{ route('reservations.userReservations') }}">Mis
                                         reservas</a></li>
                             </ul>

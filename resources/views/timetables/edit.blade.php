@@ -37,10 +37,15 @@
                         </select></td>
                     <td><input name="start" for="start" id="start" value="{{ $timetable->start }}" class="form-control" /></td>
                     <td><input name="finish" for="finish" id="finish" value="{{ $timetable->finish }}" class="form-control" /></td>
-                    <td><button type="submit" class="btn btn-secondary btn-sm">Editar</button></td>
+                    <td><button type="submit" class="btn btn-success">Editar</button></td>
                 </tr>
             </table>
         </form>
+        <div class="d-flex justify-content-center mt-5">
+            <div class="">
+                <a class="btn btn-secondary" href="/activity/create">Volver</a>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

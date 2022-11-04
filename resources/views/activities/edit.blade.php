@@ -25,10 +25,15 @@
                     @csrf
                     <td><input name="name" for="name" id="name" value="{{ $activity->name }}" class="form-control" /></td>
                     <td><input name="places" for="places" id="places" value="{{ $activity->places }}" class="form-control" /></td>
-                    <td><button type="submit" class="btn btn-secondary btn-sm">Editar</button></td>
+                    <td><button type="submit" class="btn btn-success">Editar</button></td>
                 </form>
             </tr>
         </table>
+        <div class="d-flex justify-content-center mt-5">
+            <div class="">
+                <a class="btn btn-secondary" href="/activity/create">Volver</a>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

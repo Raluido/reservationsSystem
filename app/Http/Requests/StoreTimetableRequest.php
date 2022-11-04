@@ -24,8 +24,23 @@ class StoreTimetableRequest extends FormRequest
     public function rules()
     {
         return [
-            'start' => 'required',
-            'finish' => 'required'
+            'start' => 'required|before:finish',
+            'finish' => 'required|after:start'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'start.required' => 'Tienes que indicar una hora de comienzo.',
+            'start.before' => 'Tienes que indicar una hora anterior a la fecha de finalización.',
+            'finish.required' => 'Tienes que indicar una hora de finalización.',
+            'finish.after' => 'Tienes que indicar una hora de finalización posterior a la hora de inicio.',
         ];
     }
 }
