@@ -26,7 +26,7 @@ class User extends Authenticatable
         'phone',
         'email',
         'padel_level',
-        'password',
+        'password'
     ];
 
     /**

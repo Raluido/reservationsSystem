@@ -72,7 +72,7 @@
                 <div class="">
                     @guest
                     <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">Login</a>
-                    {{-- <a href="{{ route('register.perform') }}" class="btn btn-warning">Sign-up</a> --}}
+                    <a href="{{ route('register.show') }}" class="btn btn-warning">Sign-up</a>
                     @endguest
                 </div>
             </div>
