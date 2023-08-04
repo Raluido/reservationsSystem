@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Factory as ValidationFactory;
+use Illuminate\Validation\Rules\Password;
 
 class LoginRequest extends FormRequest
 {
@@ -24,8 +26,14 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required',
-            'password' => 'required'
+            'email' => 'required|email:rfc,dns',
+            'password' => 'required',
+            Password::min(8)
+                ->mixedCase()
+                ->letters()
+                ->numbers()
+                ->symbols()
+                ->uncompromised(),
         ];
     }
 
@@ -41,16 +49,16 @@ class LoginRequest extends FormRequest
         // have name of "username", however, in order to support
         // logging users in with both (username and email)
         // we have to check if user has entered one or another
-        // $username = $this->get('email');
+        $username = $this->get('email');
 
-        // if ($this->isEmail($username)) {
-        //     return [
-        //         'email' => $username,
-        //         'password' => $this->get('password')
-        //     ];
-        // }
+        if ($this->isEmail($username)) {
+            return [
+                'email' => $username,
+                'password' => $this->get('password')
+            ];
+        }
 
-        return $this->only('email','password');
+        return $this->only('email', 'password');
     }
 
     /**
@@ -60,13 +68,13 @@ class LoginRequest extends FormRequest
      * @return bool
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    // private function isEmail($param)
-    // {
-    //     $factory = $this->container->make(ValidationFactory::class);
+    private function isEmail($param)
+    {
+        $factory = $this->container->make(ValidationFactory::class);
 
-    //     return !$factory->make(
-    //         ['username' => $param],
-    //         ['username' => 'email']
-    //     )->fails();
-    // }
+        return !$factory->make(
+            ['username' => $param],
+            ['username' => 'email']
+        )->fails();
+    }
 }
