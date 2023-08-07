@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Spatie\Permission\Exceptions\UnauthorizedException;
+use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class PermissionMiddleware
 {
@@ -17,9 +19,9 @@ class PermissionMiddleware
      */
     public function handle($request, Closure $next, $permission = null, $guard = null)
     {
-        $authGuard = app('auth')->guard($guard);
+        $authGuard = auth()->guard($guard);
 
-        if ($authGuard->guest()) {
+        if (!$authGuard) {
             throw UnauthorizedException::notLoggedIn();
         }
 
@@ -35,9 +37,8 @@ class PermissionMiddleware
             $permissions = array($permission);
         }
 
-
         foreach ($permissions as $permission) {
-            if ($authGuard->user()->can($permission)) {
+            if (User::find(auth()->id())->can($permission)) {
                 return $next($request);
             }
         }

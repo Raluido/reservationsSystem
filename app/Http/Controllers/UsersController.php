@@ -50,13 +50,6 @@ class UsersController extends Controller
      */
     public function store(User $user, StoreUserRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'phone' => 'required|numeric|digits:9|unique:users,phone',
-            'role' => 'required'
-        ]);
-
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -72,12 +65,11 @@ class UsersController extends Controller
 
         Mail::to('raluido@gmail.com')->send(new ContactMail($data));
 
-
-        $user->save();
+        $user->save($request->validated());
 
         $user->syncRoles($request->get('role'));
 
-        return redirect()->route('users.index')->withSuccess(__('User created successfully.'));
+        return redirect()->route('users.index')->withSuccess(__('El usuario se ha creado satisfactoriamente.'));
     }
 
     /**
