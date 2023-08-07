@@ -63,13 +63,15 @@ class UsersController extends Controller
             'password'   =>   $password
         );
 
-        Mail::to('raluido@gmail.com')->send(new ContactMail($data));
+        Mail::to('raluido@gmail.com')->send(new ContactMail($data));    // habria que sustituir el email por $user->email para que le llegue a quien se lo //creemos
 
         $user->save($request->validated());
 
         $user->syncRoles($request->get('role'));
 
-        return redirect()->route('users.index')->withSuccess(__('El usuario se ha creado satisfactoriamente.'));
+        return redirect()
+            ->route('users.index')
+            ->withSuccess(__('El usuario se ha creado satisfactoriamente.'));
     }
 
     /**
@@ -117,7 +119,7 @@ class UsersController extends Controller
         $user->syncRoles($request->get('role'));
 
         return redirect()->route('users.index')
-            ->withSuccess(__('User updated successfully.'));
+            ->withSuccess(__('Usuario actualizado correctamente.'));
     }
 
     /**

@@ -112,7 +112,7 @@ class RolesController extends Controller
         $role->syncPermissions($request->get('permission'));
 
         return redirect()->route('roles.index')
-            ->with('success', 'Role updated successfully');
+            ->with('success', 'El rol se ha actualizado correctamente');
     }
 
     /**
