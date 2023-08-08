@@ -9,16 +9,11 @@
         <div class="container mt-5">
             <div class="d-flex justify-content-around">
                 <div class="">
-                    {!! Form::open(['method' => 'POST','route' => ['reservations.showReservations'],'style'=>'display:inline']) !!}
-                    <select name="activityChosen" class="form-control">
-                        @foreach($activityList as $index)
-                        <option value="{{ $index->id }}" @if ($index->id == $activityId) selected="selected" @endif>{{ $index->name }}</option>
-                        @endforeach
-                    </select>
+                    @foreach($activityList as $index)
+                    <a href="{{ route('reservations.index', $index->id) }}">{{ $index->name }}</a>
+                    @endforeach
                 </div>
                 <div class="">
-                    {!! Form::submit('Ver disponibilidad', ['class' => 'btn btn-primary']) !!}
-                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -36,3 +31,4 @@
     </div>
 </div>
 @endsection
+<script src="{{ asset('js/addSelected.js') }}" defer></script>

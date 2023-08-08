@@ -91,8 +91,8 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
     });
 
     Route::group(['prefix' => 'reservations'], function () {
-        Route::get('/', 'ReservationsController@index')->name('reservations.index');
-        Route::post('/', 'ReservationsController@showReservations')->name('reservations.showReservations');
+        Route::get('/{activity?}', 'ReservationsController@index')->name('reservations.index');
+        // Route::post('/', 'ReservationsController@showReservations')->name('reservations.showReservations');
         Route::post('/reserve', 'ReservationsController@reserve')->name('reservations.reserve');
         Route::get('/cancel/{reservationId}', 'ReservationsController@cancel')->name('reservations.cancel');
     });

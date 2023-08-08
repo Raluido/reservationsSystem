@@ -6,34 +6,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use DB;
 use App\Models\Reservation;
+use Illuminate\Support\Carbon;
 
 
 class ReservationsController extends Controller
 {
-    public function index()
+    public function index($activityId = null)
     {
         $userId = auth()->user()->id;
-        $today = today();
-        $activityId = Db::Table('activities')
-            ->limit(1)
-            ->value('id');
+        if ($activityId == null) {
+            $activityId = Db::Table('activities')
+                ->limit(1)
+                ->value('id');
+        }
         $activityList = Db::Table('activities')
             ->get();
-        $range = date('Y-m-d', strtotime(today() . ' + 15 days')) . ' 00:00:00';
         $checkdatesAr3 = array(null);
         $reservedPlaces = Db::Table('activities')
             ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
             ->join('reservations', 'reservations.timetable_id', '=', 'timetables.id')
-            ->whereBetween('reservations.reservationDay', [$today, $range])
             ->select('activities.name', 'reservations.user_id', 'reservations.reservationDay', 'timetables.start', 'timetables.finish')
+            ->whereBetween('reservations.reservationDay', [Carbon::now(), Carbon::now()->addDays(15)])
             ->get();
 
+        // We doesnt filter today's timetables already gone
 
         for ($i = 0; $i <= 14; $i++) {
 
-            $dayOfWeekPlus = date('Y-m-d', strtotime($today . ' +' . $i . 'days'));
+            $dayOfWeekPlus = date('Y-m-d', strtotime(Carbon::now() . ' +' . $i . 'days'));
             $dayOfWeek = date("N", strtotime($dayOfWeekPlus));
-
             $timetablesPerDay = Db::Table('timetables')
                 ->where('dayOfTheWeek', $dayOfWeek)
                 ->where('activity_id', '=', $activityId)
@@ -44,14 +45,20 @@ class ReservationsController extends Controller
                 $checkDay = $dayOfWeekPlus . ' ' . $index->start;
                 $hour = $index->start;
                 $timetableId = $index->id;
+
+                // Total amount of Reservations by others
+
                 $hourR = Db::Table('timetables')
                     ->join('reservations', 'timetables.id', '=', 'reservations.timetable_id')
                     ->where('timetables.dayOfTheWeek', '=', $dayOfWeek)
                     ->where('timetables.activity_id', '=', $activityId)
                     ->where('timetables.start', '=', $hour)
                     ->where('reservations.reservationDay', '=', $dayOfWeekPlus)
+                    ->where('reservations.user_id', '!=', $userId)
                     ->get()
                     ->count();
+
+                // Reserved by auth user, 0 or 1
 
                 $hourRU = Db::Table('timetables')
                     ->join('reservations', 'timetables.id', '=', 'reservations.timetable_id')
@@ -82,84 +89,82 @@ class ReservationsController extends Controller
             return array((object)$array);
         }, $checkdatesAr3);
 
-        $activityId = null;
-
         return view('reservations.index', compact('checkdatesAr3', 'activityList', 'activityId'));
     }
 
 
-    public function showReservations(Request $request)
-    {
-        $userId = auth()->user()->id;
-        $today = today();
-        $activityId = $request->input('activityChosen');
-        $activityList = Db::Table('activities')
-            ->get();
-        $range = date('Y-m-d', strtotime(today() . ' + 15 days')) . ' 00:00:00';
-        $checkdatesAr3 = array(null);
-        $reservedPlaces = Db::Table('activities')
-            ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
-            ->join('reservations', 'reservations.timetable_id', '=', 'timetables.id')
-            ->whereBetween('reservations.reservationDay', [$today, $range])
-            ->select('activities.name', 'reservations.user_id', 'reservations.reservationDay', 'timetables.start', 'timetables.finish')
-            ->get();
+    // public function showReservations(Request $request)
+    // {
+    //     $userId = auth()->user()->id;
+    //     $today = today();
+    //     $activityId = $request->input('activityChosen');
+    //     $activityList = Db::Table('activities')
+    //         ->get();
+    //     $range = date('Y-m-d', strtotime(today() . ' + 15 days')) . ' 00:00:00';
+    //     $checkdatesAr3 = array(null);
+    //     $reservedPlaces = Db::Table('activities')
+    //         ->join('timetables', 'timetables.activity_id', '=', 'activities.id')
+    //         ->join('reservations', 'reservations.timetable_id', '=', 'timetables.id')
+    //         ->whereBetween('reservations.reservationDay', [$today, $range])
+    //         ->select('activities.name', 'reservations.user_id', 'reservations.reservationDay', 'timetables.start', 'timetables.finish')
+    //         ->get();
 
-        for ($i = 0; $i <= 14; $i++) {
+    //     for ($i = 0; $i <= 14; $i++) {
 
-            $dayOfWeekPlus = date('Y-m-d', strtotime($today . ' +' . $i . 'days'));
-            $dayOfWeek = date("N", strtotime($dayOfWeekPlus));
+    //         $dayOfWeekPlus = date('Y-m-d', strtotime($today . ' +' . $i . 'days'));
+    //         $dayOfWeek = date("N", strtotime($dayOfWeekPlus));
 
-            $timetablesPerDay = Db::Table('timetables')
-                ->where('dayOfTheWeek', $dayOfWeek)
-                ->where('activity_id', $activityId)
-                ->get();
+    //         $timetablesPerDay = Db::Table('timetables')
+    //             ->where('dayOfTheWeek', $dayOfWeek)
+    //             ->where('activity_id', $activityId)
+    //             ->get();
 
 
-            foreach ($timetablesPerDay as $index) {
+    //         foreach ($timetablesPerDay as $index) {
 
-                $checkDay = $dayOfWeekPlus . ' ' . $index->start;
-                $hour = $index->start;
-                $timetableId = $index->id;
-                $hourR = Db::Table('timetables')
-                    ->join('reservations', 'timetables.id', '=', 'reservations.timetable_id')
-                    ->where('timetables.dayOfTheWeek', '=', $dayOfWeek)
-                    ->where('timetables.activity_id', '=', $activityId)
-                    ->where('timetables.start', '=', $hour)
-                    ->where('reservations.reservationDay', '=', $dayOfWeekPlus)
-                    ->get()
-                    ->count();
+    //             $checkDay = $dayOfWeekPlus . ' ' . $index->start;
+    //             $hour = $index->start;
+    //             $timetableId = $index->id;
+    //             $hourR = Db::Table('timetables')
+    //                 ->join('reservations', 'timetables.id', '=', 'reservations.timetable_id')
+    //                 ->where('timetables.dayOfTheWeek', '=', $dayOfWeek)
+    //                 ->where('timetables.activity_id', '=', $activityId)
+    //                 ->where('timetables.start', '=', $hour)
+    //                 ->where('reservations.reservationDay', '=', $dayOfWeekPlus)
+    //                 ->get()
+    //                 ->count();
 
-                $hourRU = Db::Table('timetables')
-                    ->join('reservations', 'timetables.id', '=', 'reservations.timetable_id')
-                    ->where('timetables.dayOfTheWeek', '=', $dayOfWeek)
-                    ->where('timetables.activity_id', '=', $activityId)
-                    ->where('timetables.start', '=', $hour)
-                    ->where('reservations.reservationDay', '=', $dayOfWeekPlus)
-                    ->where('reservations.user_id', '=', $userId)
-                    ->get()
-                    ->count();
+    //             $hourRU = Db::Table('timetables')
+    //                 ->join('reservations', 'timetables.id', '=', 'reservations.timetable_id')
+    //                 ->where('timetables.dayOfTheWeek', '=', $dayOfWeek)
+    //                 ->where('timetables.activity_id', '=', $activityId)
+    //                 ->where('timetables.start', '=', $hour)
+    //                 ->where('reservations.reservationDay', '=', $dayOfWeekPlus)
+    //                 ->where('reservations.user_id', '=', $userId)
+    //                 ->get()
+    //                 ->count();
 
-                $checkedDates = [$checkDay, $hourR, $hourRU, $hour, $dayOfWeekPlus, $timetableId, $activityId];
+    //             $checkedDates = [$checkDay, $hourR, $hourRU, $hour, $dayOfWeekPlus, $timetableId, $activityId];
 
-                $checkdatesAr1 = $this->result($checkedDates);
+    //             $checkdatesAr1 = $this->result($checkedDates);
 
-                $checkdatesAr4 = array();
-                $arr = array();
-                $arr['Hora'] = $hour;
-                $arr['Estado'] = $checkdatesAr1[1];
-                $arr['Información'] = $checkdatesAr1[0];
-                $checkdatesAr4[] = $arr;
+    //             $checkdatesAr4 = array();
+    //             $arr = array();
+    //             $arr['Hora'] = $hour;
+    //             $arr['Estado'] = $checkdatesAr1[1];
+    //             $arr['Información'] = $checkdatesAr1[0];
+    //             $checkdatesAr4[] = $arr;
 
-                $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
-            }
-        }
+    //             $checkdatesAr3[$dayOfWeekPlus] = $checkdatesAr4;
+    //         }
+    //     }
 
-        $checkdatesAr3 = array_map(function ($array) {
-            return array((object)$array);
-        }, $checkdatesAr3);
+    //     $checkdatesAr3 = array_map(function ($array) {
+    //         return array((object)$array);
+    //     }, $checkdatesAr3);
 
-        return view('reservations.index', compact('checkdatesAr3', 'activityId', 'activityList'));
-    }
+    //     return view('reservations.index', compact('checkdatesAr3', 'activityId', 'activityList'));
+    // }
 
     public function result($checkedDates)
     {
@@ -210,6 +215,7 @@ class ReservationsController extends Controller
             Db::Table('reservations')
             ->where('reservationDay', $request->input('reservationDay'))
             ->where('user_id', auth()->user()->id)
+            ->where('timetable_id', $request->input(''))
             ->get()
             ->count() == 0
         ) {
