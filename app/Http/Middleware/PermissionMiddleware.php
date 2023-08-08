@@ -25,11 +25,13 @@ class PermissionMiddleware
             throw UnauthorizedException::notLoggedIn();
         }
 
-        if (!is_null($permission)) {                    // no entiendo que hace exactamente
-            $permissions = is_array($permission)
-                ? $permission
-                : explode('|', $permission);
-        }
+        // no entiendo que hace exactamente
+
+        // if (!is_null($permission)) {                 
+        //     $permissions = is_array($permission)
+        //         ? $permission
+        //         : explode('|', $permission);
+        // }
 
         if (is_null($permission)) {
             $permission = $request->route()->getName();

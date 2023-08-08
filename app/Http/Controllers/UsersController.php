@@ -36,7 +36,8 @@ class UsersController extends Controller
     {
         return view('users.create')->with([
             'user' => $user,
-            'userRole' => $user->roles->pluck('name')->toArray(), 'roles' => Role::latest()->get()
+            'userRole' => $user->roles->pluck('name')->toArray(),
+            'roles' => Role::latest()->get()
         ]);
     }
 
@@ -67,7 +68,7 @@ class UsersController extends Controller
 
         $user->save($request->validated());
 
-        $user->syncRoles($request->get('role'));
+        $user->syncRoles($request->input('role'));
 
         return redirect()
             ->route('users.index')
@@ -131,12 +132,17 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        Db::Table('yoga_reservations')->where('user_id', $user->id)->delete();
-        Db::Table('padel_reservations')->where('user_id', $user->id)->delete();
+        // Db::Table('yoga_reservations')
+        //     ->where('user_id', $user->id)
+        //     ->delete();
+
+        Db::Table('padel_reservations')
+            ->where('user_id', $user->id)
+            ->delete();
 
         $user->delete();
 
         return redirect()->route('users.index')
-            ->withSuccess(__('User deleted successfully.'));
+            ->withSuccess(__('Usuario eliminado correctamente.'));
     }
 }

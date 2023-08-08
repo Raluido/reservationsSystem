@@ -32,7 +32,7 @@
 
             <table class="table table-striped">
                 <thead>
-                    <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
+                    <th scope="col" width="1%"><input type="checkbox" id="test" name="all_permission"></th>
                     <th scope="col" width="20%">Name</th>
                     <th scope="col" width="1%">Guard</th>
                 </thead>
@@ -59,14 +59,14 @@
 @section('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
-        $('[name="all_permission"]').on('click', function() {
+        $('#test').on('click', function() {
 
             if ($(this).is(':checked')) {
-                $.each($('.permission'), function() {
+                $.each($('.permission' + '.*'), function() {
                     $(this).prop('checked', true);
                 });
             } else {
-                $.each($('.permission'), function() {
+                $.each($('.permission' + '.*'), function() {
                     $(this).prop('checked', false);
                 });
             }

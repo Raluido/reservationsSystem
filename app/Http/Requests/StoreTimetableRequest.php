@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
+use PhpParser\Node\Stmt\Foreach_;
 
 class StoreTimetableRequest extends FormRequest
 {
@@ -24,8 +26,8 @@ class StoreTimetableRequest extends FormRequest
     public function rules()
     {
         return [
-            'start' => 'required|before:finish',
-            'finish' => 'required|after:start'
+            'start.*' => 'required',
+            'finish.*' => 'required|after:start.*'
         ];
     }
 
@@ -37,10 +39,9 @@ class StoreTimetableRequest extends FormRequest
     public function messages()
     {
         return [
-            'start.required' => 'Tienes que indicar una hora de comienzo.',
-            'start.before' => 'Tienes que indicar una hora anterior a la fecha de finalización.',
-            'finish.required' => 'Tienes que indicar una hora de finalización.',
-            'finish.after' => 'Tienes que indicar una hora de finalización posterior a la hora de inicio.',
+            'start.*.required' => 'Tienes que indicar una hora de comienzo.',
+            'finish.*.required' => 'Tienes que indicar una hora de finalización.',
+            'finish.*.after' => 'Tienes que indicar una hora de finalización posterior a la hora de inicio.',
         ];
     }
 }
