@@ -17,6 +17,11 @@
 
 /* end datepicker */
 
+.dropdownMenu {
+    z-index: 9999;
+    background-color: white;
+}
+
 
 @media (min-width: 768px) {
     .bd-placeholder-img-lg {
