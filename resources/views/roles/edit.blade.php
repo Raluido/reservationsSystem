@@ -6,7 +6,6 @@
     <div class="lead">
         Editar roles y gestionar permisos.
     </div>
-
     <div class="container mt-4">
 
         @if (count($errors) > 0)
@@ -32,7 +31,7 @@
 
             <table class="table table-striped">
                 <thead>
-                    <th scope="col" width="1%"><input type="checkbox" id="test" name="all_permission"></th>
+                    <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
                     <th scope="col" width="20%">Name</th>
                     <th scope="col" width="1%">Guard</th>
                 </thead>
@@ -55,23 +54,6 @@
 
 </div>
 @endsection
-
-@section('scripts')
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#test').on('click', function() {
-
-            if ($(this).is(':checked')) {
-                $.each($('.permission' + '.*'), function() {
-                    $(this).prop('checked', true);
-                });
-            } else {
-                $.each($('.permission' + '.*'), function() {
-                    $(this).prop('checked', false);
-                });
-            }
-
-        });
-    });
-</script>
+@section('js')
+<script src="{{ asset('js/selectUnChecks.js') }}" defer></script>
 @endsection

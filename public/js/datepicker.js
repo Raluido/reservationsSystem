@@ -59,13 +59,13 @@ function changeBackground(year, month) {
                         $(this).css("background", "red");
                     }
                 });
-            } else if (y >= 1) {
+            } else if (y > 0) {
                 elements.each(function (index) {
                     if ($(this).text() == day) {
                         $(this).css("background", "orange");
                     }
                 });
-            } else if (x >= 1) {
+            } else if (x == Object.keys(events[date][0]).length) {
                 elements.each(function (index) {
                     if ($(this).text() == day) {
                         $(this).css("background", "green");
@@ -79,7 +79,7 @@ function changeBackground(year, month) {
 
 // Provide a function to find and display events
 function findEvents() {
-    var d = new Date(date);
+    var d = new Date();
     setTimeout(changeBackground, 1, d.getFullYear(), d.getMonth() + 1);
 
     // Start by emptying our data container
@@ -94,7 +94,6 @@ function findEvents() {
         $("#dateevents").html("<h2>" + date + ": Horas disponibles</h2>");
         // Cycle over every event for this date
         $.each(dateObj, function (index, event) {
-            console.log(event);
             // Build a list for each event
             var $list = $("<div>");
             // Add all event details to list
@@ -110,35 +109,3 @@ function findEvents() {
         return $("#dateevents").html("<h2>" + date + ": No hay actividades éste día</h2>");
     }
 }
-
-// function findEventsDefault(formattedToday) {
-//     var d = new Date(formattedToday);
-//     setTimeout(changeBackground, 1, d.getFullYear(), d.getMonth() + 1);
-
-//     // Start by emptying our data container
-//     $("#dateevents").empty();
-//     // Potential date object
-//     // If no events exist for the selected date
-//     try {
-//         var dateObj = [];
-//         for (let index = 0; index < Object.keys(events[formattedToday][0]).length; index++) {
-//             dateObj[index] = events[formattedToday][0][index];
-//         }
-//         $("#dateevents").html("<h2>" + formattedToday + ": Horas disponibles</h2>");
-//         // Cycle over every event for this date
-//         $.each(dateObj, function (index, event) {
-//             // Build a list for each event
-//             var $list = $("<div>");
-//             // Add all event details to list
-//             $.each(event, function (name, desc) {
-//                 $("<div>")
-//                     .html(name + ": " + desc)
-//                     .appendTo($list);
-//             });
-//             // Place list in container
-//             $list.appendTo("#dateevents");
-//         });
-//     } catch (error) {
-//         return $("#dateevents").html("<h2>" + formattedToday + ": No hay actividades éste día</h2>");
-//     }
-// }

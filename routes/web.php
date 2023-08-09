@@ -92,7 +92,6 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
 
     Route::group(['prefix' => 'reservations'], function () {
         Route::get('/{activity?}', 'ReservationsController@index')->name('reservations.index');
-        // Route::post('/', 'ReservationsController@showReservations')->name('reservations.showReservations');
         Route::post('/reserve', 'ReservationsController@reserve')->name('reservations.reserve');
         Route::get('/cancel/{reservationId}', 'ReservationsController@cancel')->name('reservations.cancel');
     });
@@ -105,7 +104,6 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
 
     Route::group(['prefix' => 'userReservations'], function () {
         Route::get('/', 'UserReservationsController@userReservations')->name('reservations.userReservations');
-        Route::get('/deleteYoga/{bookdate}', 'UserReservationsController@deleteYoga')->name('reservations.deleteYoga');
         Route::get('/deletePadel/{bookdate}', 'UserReservationsController@deletePadel')->name('reservations.deletePadel');
     });
 
