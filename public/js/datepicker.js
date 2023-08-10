@@ -89,7 +89,7 @@ function findEvents(date) {
         for (let index = 0; index < Object.keys(events[date][0]).length; index++) {
             dateObj[index] = events[date][0][index];
         }
-        $("#dateevents").html("<h2>" + date + ": Horas disponibles</h2>");
+        $("#dateevents").html("<h5>" + date + ": Horas disponibles</h5>");
         // Cycle over every event for this date
         $.each(dateObj, function (index, event) {
             // Build a list for each event
