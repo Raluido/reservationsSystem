@@ -1,12 +1,12 @@
 @extends('layouts.app-master')
 
 @section('content')
-<div class="container bg-light mt-4">
+<div class="bg-light mt-4">
     <div class="">
         <div class="">
             <h4>Consulta la disponiblidad de las actividades disponibles</h4>
         </div>
-        <div class="container mt-5">
+        <div class="mt-5">
             <div class="clickMenu btn btn-primary position-relative">{{ $activityChoose->name }}</div>
             <div class="d-none dropdownMenu bg-ligth border border-secondary ms-2 p-2 position-absolute">
                 @foreach($activityList as $index)
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <div class="container mt-5 position-absolute">
+    <div class="mt-5 position-absolute">
         <div class="">
             <h4></h4>
             <p></p>

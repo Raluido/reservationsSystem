@@ -16,8 +16,16 @@ class UserReservationsController extends Controller
             ->get()
             ->toArray();
 
-        return view('reservations.userReservations')
-            ->with('padelReservations', $padelReservations);
+        $othersReservations = Db::Table('users')
+            ->select('activities.name', 'timetables.start', 'timetables.finish', 'timetables.dayOfTheWeek', 'reservations.reservationDay', 'reservations.id')
+            ->join('reservations', 'reservations.user_id', '=', 'users.id')
+            ->join('timetables', 'timetables.id', '=', 'reservations.timetable_id')
+            ->join('activities', 'activities.id', '=', 'timetables.activity_id')
+            ->where('users.id', auth()->user()->id)
+            ->whereDate('reservations.reservationDay', '>=', today())
+            ->get();
+
+        return view('reservations.userReservations', compact('padelReservations', 'othersReservations'));
     }
 
     public function deletePadel($matchdate)
@@ -37,14 +45,7 @@ class UserReservationsController extends Controller
             ->get()
             ->toArray();
 
-        $yogaReservations = Db::Table('yoga_reservations')
-            ->whereDate('reservation_date', '>=', today())
-            ->where('user_id', auth()->user()->id)
-            ->get()
-            ->toArray();
-
         return redirect('userReservations')
-            ->with('padelReservations', $padelReservations)
-            ->with('yogaReservations', $yogaReservations);
+            ->with('padelReservations', $padelReservations);
     }
 }

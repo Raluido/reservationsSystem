@@ -96,7 +96,7 @@ function findEvents(date) {
             var $list = $("<div>");
             // Add all event details to list
             $.each(event, function (name, desc) {
-                $("<div class='mb-2'>")
+                $("<div class='mb-4'>")
                     .html(name + ": " + desc)
                     .appendTo($list);
             });
@@ -104,6 +104,6 @@ function findEvents(date) {
             $list.appendTo("#dateevents");
         });
     } catch (error) {
-        return $("#dateevents").html("<h2>" + date + ": No hay actividades éste día</h2>");
+        return $("#dateevents").html("<h5>" + date + ": No hay actividades éste día</h5>");
     }
 }

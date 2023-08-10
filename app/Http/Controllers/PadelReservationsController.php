@@ -228,10 +228,10 @@ class PadelReservationsController extends Controller
         $state = "null";
 
         if ($checkedDates[2] == 1) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Ya has reservado para ésta hora, quieres cancelar? " . "</p>" . "<div class='d-flex justify-content-center'><div><button class='ms-3'><a class='text-dark text-decoration-none' href='" . url('padelReservations/deletematch/' . $checkedDates[0]) . "'>Cancelar</a></button></div></div></div>";
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3 mt-3'><p>Ya has reservado para ésta hora, quieres cancelar? " . "</p>" . "<div class='d-flex justify-content-center'><div><button class='ms-3'><a class='text-dark text-decoration-none' href='" . url('padelReservations/deletematch/' . $checkedDates[0]) . "'>Cancelar</a></button></div></div></div>";
             $state = "Reservado";
         } else if ($checkedDates[1] == 0) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>No hay partidos reservados partidos a ésta hora. Quieres reservar" . "</p>" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3 mt-3'><p>No hay partidos reservados partidos a ésta hora. Quieres reservar" . "</p>" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
             <input type='hidden' name='reservationDate' value='$checkedDates[0]'>
             <input type='hidden' name='newMatch' value='0'>
@@ -240,7 +240,7 @@ class PadelReservationsController extends Controller
             </form></div>";
             $state = "Hay plazas";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 3 && $checkedDates[2] == 0 && Db::Table('users')->where('id', auth()->user()->id)->value('padel_level') == $checkedDates[3]) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Hay un partido reservado pero quedan " . (4 - $checkedDates[1]) . " plazas. Quieres reservar"  . "</p>" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3 mt-3'><p>Hay un partido reservado pero quedan " . (4 - $checkedDates[1]) . " plazas. Quieres reservar"  . "</p>" . "<form method='POST' action='/padelReservations' enctype='multipart/form-data' style='margin-bottom:0px'>
             <input name='_token' type='hidden' value='" . csrf_token() . "'>
             <input type='hidden' name='reservationDate' value='$checkedDates[0]'>
             <input type='hidden' name='newMatch' value='0'>
@@ -249,10 +249,10 @@ class PadelReservationsController extends Controller
             </form></div>";
             $state = "Hay plazas";
         } else if ($checkedDates[1] >= 1 && $checkedDates[1] <= 3 && $checkedDates[2] == 0 && Db::Table('users')->where('id', auth()->user()->id)->value('padel_level') != $checkedDates[3]) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Aún quedan plazas para éste partido pero no tienes el nivel para participar</p></div>";
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3 mt-3'><p>Aún quedan plazas para éste partido pero no tienes el nivel para participar</p></div>";
             $state = "Sin plazas";
         } else if ($checkedDates[1] == 4) {
-            $checkdatesAr = "<div class='border py-3 ps-3 pe-3'><p>Todas las plazas están ocupadas, losiento</p></div>";
+            $checkdatesAr = "<div class='border py-3 ps-3 pe-3 mt-3'><p>Todas las plazas están ocupadas, losiento</p></div>";
             $state = "Sin plazas";
         }
 
