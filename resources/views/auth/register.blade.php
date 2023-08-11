@@ -10,7 +10,7 @@
     </div>
 
     <div class="d-flex justify-content-center">
-        <div class="w-25 mt-5">
+        <div class="mt-5">
             <div class="form-group form-floating mb-3">
                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="name@example.com" required="required" autofocus>
                 <label for="floatingEmail">Email address</label>
