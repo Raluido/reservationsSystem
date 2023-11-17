@@ -22,11 +22,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <!-- <link href="{{ asset('css/daterangepicker.css') }}" rel="stylesheet"> -->
 
-
-    <!-- FontAwesome -->
-    {{-- <link href="{{ asset('assets/fontawesome/css/all.css') }}" rel="stylesheet"> --}}
 
 </head>
 

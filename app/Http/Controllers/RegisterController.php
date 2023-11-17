@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -26,12 +27,14 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request, Role $role)
     {
         $user = User::create($request->validated());
 
+        $user->assignRole([2]);
+
         auth()->login($user);
 
-        return redirect('/')->with('success', "Account successfully registered.");
+        return redirect('/')->with('Exito', "Usuario creado correctamente.");
     }
 }

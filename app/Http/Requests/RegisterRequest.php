@@ -28,11 +28,11 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email:rfc,dns|unique:users,email',
             'phone' => 'required|unique:users,phone',
             'password' => 'required',
+            'name' => 'required',
             Password::min(8)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
-                ->symbols()
                 ->uncompromised(),
             'password_confirmation' => 'required|same:password'
         ];
