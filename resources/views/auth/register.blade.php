@@ -35,6 +35,19 @@
             </div>
 
             <div class="form-group form-floating mb-3">
+                <label for="padel_level" class="form-label">Nivel de padel</label>
+                <select name="padel_level" id="type" class="form-control">
+                    <option disabled selected value></option>
+                    <option value="Low">Bajo</option>
+                    <option value="Medium">Medio</option>
+                    <option value="Hight">Alto</option>
+                </select>
+                @if ($errors->has('padel_level'))
+                <span class="text-danger text-left">{{ $errors->first('padel_level') }}</span>
+                @endif
+            </div>
+
+            <div class="form-group form-floating mb-3">
                 <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password" required="required">
                 <label for="floatingPassword">Password</label>
                 @if ($errors->has('password'))
