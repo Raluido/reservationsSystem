@@ -22,7 +22,10 @@ class UserController extends Controller
         $user->padel_Level = $request->input('padel_level');
         $user->update();
 
-        return redirect()->route('user.editData')->with('user', $user)->withSuccess(__('Se ha editado con éxito'));
+        return redirect()
+            ->route('user.editData')
+            ->with('user', $user)
+            ->withSuccess(__('Se ha editado con éxito'));
     }
 
     public function editPassword()
@@ -54,6 +57,8 @@ class UserController extends Controller
         $user->password = $request->input('password');
         $user->update();
 
-        return redirect()->route('user.editPassword')->with('user', $user)->withSuccess(__('Se ha editado con éxito'));
+        return redirect()->route('user.editPassword')
+            ->with('user', $user)
+            ->withSuccess(__('Se ha editado con éxito'));
     }
 }

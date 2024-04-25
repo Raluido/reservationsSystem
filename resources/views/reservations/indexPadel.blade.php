@@ -3,6 +3,9 @@
 @section('content')
 <div class="bg-light p-4 rounded">
     <div class="">
+        @include('layouts.partials.messages')
+    </div>
+    <div class="">
         <h2>Reservar padel</h2>
     </div>
     <div class="container mt-5">

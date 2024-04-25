@@ -14,6 +14,7 @@ class ReservationsController extends Controller
     public function index($activityId = null)
     {
         $userId = auth()->user()->id;
+
         if ($activityId == null) {
             $activityChoose = Db::Table('activities')
                 ->limit(1)
@@ -23,6 +24,13 @@ class ReservationsController extends Controller
                 ->where('id', $activityId)
                 ->get();
         }
+
+        if ($activityChoose->count() == 0) {
+            return redirect()
+                ->back()
+                ->withErrors('No hay más actividades disponibles aún');
+        }
+
         $activityChoose = $activityChoose[0];
         $activityList = Db::Table('activities')
             ->get();

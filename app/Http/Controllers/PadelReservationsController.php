@@ -18,7 +18,9 @@ class PadelReservationsController extends Controller
         $today = today();
 
         $range = date('Y-m-d', strtotime(today() . ' + 15 days')) . ' 00:00:00';
-        $reservedPlaces = Db::Table('padel_reservations')->whereBetween('reservation_date', [$today, $range])->get();
+        $reservedPlaces = Db::Table('padel_reservations')
+            ->whereBetween('reservation_date', [$today, $range])
+            ->get();
 
         $checkdatesAr3 = array(null);
 
@@ -262,7 +264,8 @@ class PadelReservationsController extends Controller
 
     public function creatematch(Request $request)
     {
-        if (Db::Table('padel_reservations')
+        if (
+            Db::Table('padel_reservations')
             ->where('reservation_date', $request->input('reservationDate'))
             ->where('user_id', auth()->user()->id)
             ->get()

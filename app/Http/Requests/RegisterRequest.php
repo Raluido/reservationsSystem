@@ -28,13 +28,26 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email:rfc,dns|unique:users,email',
             'phone' => 'required|unique:users,phone',
             'password' => 'required',
+            'name' => 'required',
+            'padel_level' => 'required',
             Password::min(8)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
-                ->symbols()
                 ->uncompromised(),
             'password_confirmation' => 'required|same:password'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Tienes que añadir un email',
+            'phone.required' => 'Tienes que añadir un número de teléfono',
+            'password.required' => 'Tienes que añadir un password',
+            'password_confirmation.same' => 'Ambos password deben coincidir',
+            'name.required' => 'Tienes que añadir un nombre',
+            'padel_level.required' => 'Tienes que añadir un nivel de padel',
         ];
     }
 }

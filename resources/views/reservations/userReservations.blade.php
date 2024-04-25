@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container my-5">
+    <div class="">
+        @include('layouts.partials.messages')
+    </div>
     <h2>Gestión de reservas</h2>
 
     <div class="mt-5 row">

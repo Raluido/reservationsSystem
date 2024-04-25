@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="bg-light p-5 rounded">
+    <div class="">
+        @include('layouts.partials.messages')
+    </div>
     @auth
     <h1>Gestión de Reservas</h1>
     <p class="lead">Sólo usuarios registrados podrán acceder al contenido.</p>
